@@ -42,7 +42,7 @@ npm run build:gh-pages
 ### Estrutura de Arquivos
 
 - `outputPath`: `docs/` (configurado no `angular.json`)
-- `baseHref`: `/stonkz-frontend/` (ajuste para o nome do seu repositório)
+- `baseHref`: `/` (repositório username.github.io)
 - Workflow: `.github/workflows/deploy.yml`
 
 ## 🛠️ Desenvolvimento Local
