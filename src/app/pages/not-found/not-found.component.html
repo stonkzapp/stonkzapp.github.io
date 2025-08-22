@@ -1,0 +1,73 @@
+<div class="not-found-container">
+  <div class="not-found-content">
+    <!-- Ilustração 404 -->
+    <div class="illustration-container">
+      <div class="error-code">
+        <span class="digit">4</span>
+        <div class="planet">
+          <div class="planet-ring"></div>
+          <div class="planet-core"></div>
+        </div>
+        <span class="digit">4</span>
+      </div>
+    </div>
+
+    <!-- Mensagem principal -->
+    <div class="message-section">
+      <h1 class="error-title">Ops! Página não encontrada</h1>
+      <p class="error-description">
+        Parece que você se perdeu no espaço digital. Esta página não existe ou
+        foi movida para outra galáxia.
+      </p>
+    </div>
+
+    <!-- Sugestões de navegação -->
+    <div class="suggestions-section">
+      <h3 class="suggestions-title">O que você pode fazer:</h3>
+      <div class="suggestions-grid">
+        <div class="suggestion-item">
+          <mat-icon class="suggestion-icon">home</mat-icon>
+          <span>Voltar para o início</span>
+        </div>
+        <div class="suggestion-item">
+          <mat-icon class="suggestion-icon">search</mat-icon>
+          <span>Verificar o endereço</span>
+        </div>
+        <div class="suggestion-item">
+          <mat-icon class="suggestion-icon">arrow_back</mat-icon>
+          <span>Voltar à página anterior</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botões de ação -->
+    <div class="actions-section">
+      <button
+        mat-raised-button
+        color="primary"
+        class="action-button primary"
+        (click)="goHome()">
+        <mat-icon>home</mat-icon>
+        Ir para Home
+      </button>
+
+      <button
+        mat-stroked-button
+        class="action-button secondary"
+        (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Voltar
+      </button>
+    </div>
+
+    <!-- Footer com informações adicionais -->
+    <div class="footer-section">
+      <p class="footer-text">
+        Se você acredita que isso é um erro, entre em contato conosco em
+        <a href="mailto:contato&#64;stonkz.com.br" class="contact-link"
+          >contato&#64;stonkz.com.br</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

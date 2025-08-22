@@ -1,0 +1,425 @@
+/* Header principal da aplicação */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-sm);
+  height: 72px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all var(--transition-normal);
+}
+
+/* Área esquerda: Botão voltar e título */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 1;
+}
+
+.back-button {
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+}
+
+.page-title-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.page-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.2;
+
+  @media (max-width: 768px) {
+    font-size: var(--font-size-lg);
+    display: none; /* Oculto por padrão no mobile */
+  }
+}
+
+/* Mostrar page-title no mobile quando showBackButton estiver ativo */
+@media (max-width: 768px) {
+  .header-left:has(.back-button) .page-title {
+    display: block !important;
+  }
+}
+
+.mobile-logo {
+  display: none;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+/* Ocultar logo no mobile quando showBackButton estiver ativo */
+@media (max-width: 768px) {
+  .header-left:has(.back-button) .mobile-logo {
+    display: none !important;
+  }
+}
+
+/* Área direita: Ícones de ação */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Indicador de modo mock */
+.mock-indicator {
+  display: flex;
+  align-items: center;
+  margin-right: var(--space-2);
+}
+
+.mock-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.action-button {
+  position: relative;
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-lg);
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  &:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-hover);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+  }
+
+  &.active {
+    color: var(--color-primary);
+    background-color: var(--color-surface-selected);
+  }
+
+  mat-icon {
+    font-size: 1.25rem !important;
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+  }
+}
+
+/* Avatar do usuário */
+.user-avatar {
+  .avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary),
+      var(--color-primary-dark)
+    );
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-fast);
+  }
+
+  &:hover .avatar-circle {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Menu dropdown do usuário */
+::ng-deep .user-menu {
+  .mat-mdc-menu-panel {
+    min-width: 200px;
+    max-width: 250px;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid var(--color-border-primary) !important;
+    background: var(--color-white) !important;
+
+    // Sobrescrever variáveis do Material Design 3
+    --mat-menu-container-color: var(--color-white) !important;
+    --mat-menu-container-shape: var(--radius-lg) !important;
+  }
+
+  .mat-mdc-menu-content {
+    padding: var(--space-2) !important;
+  }
+
+  /* Informações do usuário */
+  .user-info {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border-primary);
+    margin-bottom: var(--space-2);
+
+    .user-name {
+      font-weight: 600;
+      color: var(--color-text-primary);
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .user-email {
+      color: var(--color-text-secondary);
+      font-size: 0.8rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .mock-mode-info {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+      color: white;
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+
+  .mat-mdc-menu-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--space-3) !important;
+    padding: var(--space-3) var(--space-4) !important;
+    min-height: 48px !important;
+    border-radius: var(--radius-md) !important;
+    margin-bottom: var(--space-1) !important;
+    transition: all var(--transition-fast) !important;
+
+    .mat-icon {
+      color: #6b7280 !important;
+      margin-right: 0 !important;
+      font-size: 20px !important;
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    span {
+      color: var(--color-black) !important;
+      font-weight: 500 !important;
+      font-size: 0.875rem !important;
+    }
+
+    &:hover {
+      background-color: rgba(var(--color-primary-rgb), 0.08) !important;
+      transform: translateY(-1px) !important;
+
+      .mat-icon {
+        color: var(--color-primary) !important;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .logout-item {
+    .mat-icon {
+      color: var(--color-error) !important;
+    }
+
+    span {
+      color: var(--color-error) !important;
+    }
+
+    &:hover {
+      background-color: var(--color-error) !important;
+      color: var(--color-white) !important;
+
+      .mat-icon,
+      span {
+        color: var(--color-white) !important;
+      }
+    }
+  }
+
+  .mat-divider {
+    margin: var(--space-2) 0 !important;
+    border-color: var(--color-border-primary) !important;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+    height: 64px;
+  }
+
+  .page-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .action-button {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: var(--space-2) var(--space-3);
+    height: 56px;
+  }
+
+  .header-left {
+    gap: var(--space-2);
+  }
+
+  .page-title-container {
+    gap: var(--space-2);
+  }
+
+  .page-title {
+    display: none;
+  }
+
+  .mobile-logo {
+    width: 80px;
+    height: 24px;
+  }
+
+  .header-right {
+    gap: var(--space-1);
+  }
+
+  .action-button {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .user-avatar .avatar-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
+  .mock-badge {
+    font-size: 0.65rem;
+    padding: 1px 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: var(--space-2);
+  }
+
+  .page-title-container {
+    gap: var(--space-1);
+  }
+
+  .page-title {
+    display: none;
+  }
+
+  .mobile-logo {
+    width: 80px;
+    height: 24px;
+  }
+
+  .action-button {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .user-avatar .avatar-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+
+  .mock-badge {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+}
+
+/* Suporte para modo de alta contraste */
+@media (prefers-contrast: high) {
+  .app-header {
+    border-bottom: 2px solid var(--color-border-primary);
+  }
+
+  .action-button:focus-visible {
+    outline: 3px solid var(--color-border-focus);
+  }
+}
+
+/* Suporte para modo de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .app-header,
+  .action-button,
+  .user-avatar {
+    transition: none;
+  }
+
+  .action-button:hover {
+    transform: none;
+  }
+
+  .user-avatar:hover {
+    transform: none;
+  }
+
+  .mock-badge {
+    animation: none;
+  }
+}

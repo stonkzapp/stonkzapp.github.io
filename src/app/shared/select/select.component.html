@@ -1,0 +1,16 @@
+<div class="select-container" [ngClass]="{ error: hasError }">
+  <label>{{ label }}</label>
+  <mat-form-field
+    appearance="outline"
+    [ngClass]="{ 'mat-form-field-invalid': hasError }"
+    [ngStyle]="{ width: width, height: height }">
+    <mat-select [formControl]="control">
+      <mat-option *ngFor="let option of options()" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="hasError">
+      {{ errorMessage }}
+    </mat-error>
+  </mat-form-field>
+</div>

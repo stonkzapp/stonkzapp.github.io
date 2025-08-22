@@ -1,0 +1,73 @@
+<div class="register-container">
+  @if (!isMobile) {
+  <div class="register-left">
+    <img
+      src="register/register.svg"
+      alt="register Image"
+      class="register-image" />
+  </div>
+  }
+
+  <div class="register-right">
+    <section class="register-card">
+      <div class="logo-section">
+        <img src="logo.svg" alt="Stonkz Logo" class="logo" />
+      </div>
+      <h2 class="register-title">
+        Já é usuário?
+        <a (click)="onLogin()" class="register-link">faça seu login</a>
+      </h2>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <app-input
+          label="Nome"
+          placeholder="Digite seu Nome"
+          [control]="registerForm.controls.firstName"></app-input>
+        <app-input
+          label="Sobrenome"
+          placeholder="Digite seu Sobrenome"
+          [control]="registerForm.controls.lastName"></app-input>
+        <app-input
+          label="CPF"
+          placeholder="000.000.000-00"
+          mask="000.000.000-00"
+          [control]="registerForm.controls.document"></app-input>
+        <app-input
+          label="E-mail"
+          type="email"
+          [control]="registerForm.controls.email"></app-input>
+        <app-input
+          label="Celular"
+          placeholder="(00) 00000-0000"
+          mask="(00) 00000-0000"
+          [control]="registerForm.controls.phoneNumber"></app-input>
+        <app-password-input
+          label="Senha"
+          type="password"
+          [control]="registerForm.controls.password"
+          [confirmControl]="registerForm.controls.password"
+          [isConfirmPassword]="true">
+        </app-password-input>
+
+        <div class="register-options">
+          <mat-checkbox formControlName="term" />
+          <span class="term">
+            Concordo com os
+            <span class="link"
+              >Termos de Uso e Politicas de Privacidade</span
+            ></span
+          >
+        </div>
+        <app-button
+          [label]="'Registrar'"
+          type="submit"
+          [loading]="isLoading()"
+          [disabled]="
+            registerForm.invalid ||
+            !registerForm.controls.term.value ||
+            isLoading()
+          "></app-button>
+      </form>
+    </section>
+  </div>
+</div>

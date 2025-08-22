@@ -1,0 +1,189 @@
+/* Estilos principais para o login */
+.login-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 100vh; /* Garante que ocupe toda a altura da tela */
+  width: 100%;
+  overflow: hidden; /* Impede o scroll */
+}
+
+/* Coluna esquerda para a imagem - ocupa 70% da tela */
+.login-left {
+  flex: 7; /* A imagem vai ocupar 7 partes do layout */
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.login-image {
+  width: 100%;
+  height: 100vh; /* A altura é 100% da tela */
+  object-fit: cover; /* A imagem vai cobrir completamente a área sem distorção */
+  object-position: top; /* Centraliza a imagem */
+}
+
+/* Coluna direita para o formulário - ocupa 30% da tela */
+.login-right {
+  flex: 3; /* O formulário vai ocupar 3 partes do layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Garante que o formulário ocupe toda a altura da tela */
+  overflow-y: auto; /* Permite rolagem vertical se necessário */
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+}
+
+/* Estilo para a logo dentro do card */
+.logo-section {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 163px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* Estilo para o título */
+.login-title {
+  font-size: 16px;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: 20px;
+
+  .register-link {
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--color-primary); /* Cor conforme especificação */
+
+    :hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+/* Informações de credenciais mock */
+.mock-credentials-info {
+  margin-top: 24px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .mock-badge {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .mock-info {
+    flex: 1;
+
+    h4 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    p {
+      margin: 0 0 8px 0;
+      font-size: 12px;
+      color: #6c757d;
+    }
+
+    .credentials {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid #ced4da;
+      margin: 8px 0;
+      font-size: 12px;
+      color: #495057;
+      line-height: 1.4;
+    }
+
+    small {
+      font-size: 11px;
+      color: #868e96;
+      font-style: italic;
+    }
+  }
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column; /* Coloca a imagem e o formulário em colunas */
+  }
+
+  .login-left {
+    display: none; /* Remove a imagem em dispositivos móveis */
+  }
+
+  .login-right {
+    align-items: flex-start;
+    margin-top: 24px;
+    width: 100%;
+    height: auto; /* Deixa a altura do formulário ajustar conforme o conteúdo */
+  }
+
+  .login-card {
+    padding: 15px;
+  }
+
+  .mock-credentials-info {
+    margin-top: 16px;
+    padding: 12px;
+
+    .mock-info {
+      h4 {
+        font-size: 13px;
+      }
+
+      p,
+      .credentials,
+      small {
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+/* Estilos adicionais para a parte inferior do formulário */
+.login-options {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.forgot-password-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--color-primary); /* Cor conforme especificação */
+  font-size: 12px;
+}
+
+.forgot-password-link:hover {
+  opacity: 0.5;
+}

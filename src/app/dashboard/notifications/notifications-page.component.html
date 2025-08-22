@@ -1,0 +1,224 @@
+<div class="notifications-page">
+  <!-- Header da página -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="title-section">
+          <h1 class="page-title">
+            <mat-icon class="title-icon">notifications</mat-icon>
+            Central de Notificações
+          </h1>
+          <p class="page-subtitle">
+            Todas as suas notificações inteligentes em um só lugar
+          </p>
+        </div>
+        <div class="stats-section">
+          <div class="stat-chip unread">
+            <mat-icon>fiber_manual_record</mat-icon>
+            <span>{{ unreadCount() }} não lidas</span>
+          </div>
+          <div class="stat-chip total">
+            <mat-icon>notifications_none</mat-icon>
+            <span>{{ notifications().length }} total</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button
+          mat-flat-button
+          class="header-action-btn primary"
+          (click)="markAllAsRead()"
+          [disabled]="unreadCount() === 0">
+          <mat-icon>done_all</mat-icon>
+          Marcar todas como lidas
+        </button>
+        <button
+          mat-outlined-button
+          class="header-action-btn secondary"
+          (click)="clearAllNotifications()"
+          [disabled]="notifications().length === 0">
+          <mat-icon>clear_all</mat-icon>
+          Limpar todas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <h3 class="filters-title">
+      <mat-icon>filter_list</mat-icon>
+      Filtrar Notificações
+    </h3>
+    <div class="filters-grid">
+      <button
+        mat-button
+        [class.selected]="selectedFilter() === 'all'"
+        (click)="applyFilter('all')"
+        class="filter-btn">
+        <mat-icon>notifications</mat-icon>
+        <span>Todas</span>
+        <span class="count">({{ notifications().length }})</span>
+      </button>
+      <button
+        mat-button
+        [class.selected]="selectedFilter() === 'unread'"
+        (click)="applyFilter('unread')"
+        class="filter-btn unread">
+        <mat-icon>fiber_manual_record</mat-icon>
+        <span>Não lidas</span>
+        <span class="count">({{ unreadCount() }})</span>
+      </button>
+      <button
+        mat-button
+        [class.selected]="selectedFilter() === 'read'"
+        (click)="applyFilter('read')"
+        class="filter-btn">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Lidas</span>
+        <span class="count"
+          >({{ notifications().length - unreadCount() }})</span
+        >
+      </button>
+      <div
+        [class.selected]="selectedFilter() === 'success'"
+        (click)="applyFilter('success')"
+        class="filter-badge success">
+        <mat-icon>check_circle</mat-icon>
+        <span>Sucesso</span>
+      </div>
+      <div
+        [class.selected]="selectedFilter() === 'info'"
+        (click)="applyFilter('info')"
+        class="filter-badge info">
+        <mat-icon>info_outline</mat-icon>
+        <span>Info</span>
+      </div>
+      <div
+        [class.selected]="selectedFilter() === 'warning'"
+        (click)="applyFilter('warning')"
+        class="filter-badge warning">
+        <mat-icon>warning_amber</mat-icon>
+        <span>Aviso</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lista de notificações -->
+  <div class="notifications-section">
+    <div
+      *ngFor="
+        let notification of filteredNotifications();
+        trackBy: trackByNotificationId
+      "
+      class="notification-card"
+      [class.unread]="!notification.isRead"
+      [class.read]="notification.isRead">
+      <mat-card class="notification-content-card">
+        <div class="notification-header">
+          <div class="notification-emoji">{{ notification.emoji }}</div>
+          <div class="notification-meta">
+            <h3 class="notification-title">{{ notification.title }}</h3>
+            <div class="notification-time-info">
+              <span class="notification-time">{{
+                formatTimestamp(notification.timestamp)
+              }}</span>
+              <div
+                class="type-badge"
+                [style.background-color]="
+                  getNotificationColor(notification.type)
+                ">
+                <mat-icon>{{
+                  getNotificationIcon(notification.type)
+                }}</mat-icon>
+                <span>{{ getNotificationTypeLabel(notification.type) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="notification-status">
+            <mat-icon
+              *ngIf="!notification.isRead"
+              class="unread-indicator"
+              [matTooltip]="'Não lida'">
+              circle
+            </mat-icon>
+          </div>
+        </div>
+
+        <mat-card-content>
+          <p class="notification-description">{{ notification.description }}</p>
+        </mat-card-content>
+
+        <mat-card-actions class="notification-actions">
+          <div class="action-buttons">
+            <button
+              *ngIf="notification.action"
+              mat-button
+              color="primary"
+              class="primary-action-btn"
+              (click)="navigateToNotification(notification)">
+              <mat-icon>{{ notification.action.icon }}</mat-icon>
+              {{ notification.action.label }}
+            </button>
+
+            <div class="secondary-actions">
+              <button
+                *ngIf="!notification.isRead"
+                mat-button
+                class="secondary-action-btn mark-read"
+                (click)="markAsRead(notification.id)"
+                [matTooltip]="'Marcar como lida'">
+                <mat-icon>check</mat-icon>
+                <span>Marcar lida</span>
+              </button>
+
+              <button
+                mat-button
+                class="secondary-action-btn delete"
+                (click)="deleteNotification(notification.id)"
+                [matTooltip]="'Excluir notificação'">
+                <mat-icon>delete</mat-icon>
+                <span>Excluir</span>
+              </button>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <!-- Estado vazio -->
+    <div
+      *ngIf="filteredNotifications().length === 0 && notifications().length > 0"
+      class="empty-filter-state">
+      <mat-icon class="empty-icon">filter_list_off</mat-icon>
+      <h3>Nenhuma notificação encontrada</h3>
+      <p>Não há notificações que correspondam ao filtro selecionado.</p>
+      <button mat-button color="primary" (click)="applyFilter('all')">
+        Ver todas as notificações
+      </button>
+    </div>
+
+    <div *ngIf="notifications().length === 0" class="empty-state">
+      <mat-icon class="empty-icon">notifications_off</mat-icon>
+      <h3>Nenhuma notificação</h3>
+      <p>Você está em dia com tudo! Não há notificações no momento.</p>
+    </div>
+  </div>
+
+  <!-- Seção sobre IA - Movida para baixo e simplificada -->
+  <mat-card class="ai-info-card">
+    <mat-card-header>
+      <div mat-card-avatar class="ai-avatar">
+        <mat-icon>psychology</mat-icon>
+      </div>
+      <mat-card-title>Notificações Inteligentes</mat-card-title>
+      <mat-card-subtitle>Powered by AI</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="ai-description">
+        Nossas notificações são geradas por inteligência artificial para trazer
+        insights personalizados sobre seu portfólio e oportunidades de mercado.
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,209 @@
+/* Estilos base do botão com tema */
+.app-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+  overflow: hidden;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+
+  /* Aplicar largura e altura personalizadas */
+  width: v-bind(width);
+  height: v-bind(height);
+
+  /* Estado desabilitado */
+  &:disabled,
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Estado de carregamento */
+  &.loading {
+    cursor: wait;
+    pointer-events: none;
+  }
+
+  /* Ícones */
+  .mat-icon {
+    font-size: var(--font-size-lg);
+    width: var(--font-size-lg);
+    height: var(--font-size-lg);
+    transition: transform var(--transition-fast);
+  }
+
+  /* Spinner de carregamento */
+  .mat-spinner {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Efeito de ripple */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width var(--transition-slow) ease,
+      height var(--transition-slow) ease;
+  }
+
+  &:active::before {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+/* Garantir que as cores sejam aplicadas com alta especificidade */
+.app-button.primary,
+button.app-button.primary,
+.app-button[class*='primary'],
+button[class*='primary'] {
+  background: var(
+    --gradient-primary,
+    var(--gradient-primary-fallback)
+  ) !important;
+  background-image: var(
+    --gradient-primary,
+    var(--gradient-primary-fallback)
+  ) !important;
+  color: var(--color-white) !important;
+  box-shadow: var(--shadow-sm) !important;
+
+  &:hover:not(:disabled):not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active:not(:disabled):not(.disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .mat-icon {
+    color: var(--color-white) !important;
+  }
+}
+
+.app-button.secondary,
+button.app-button.secondary,
+.app-button[class*='secondary'],
+button[class*='secondary'] {
+  background-color: var(--color-surface) !important;
+  color: var(--color-text-primary) !important;
+  border: 2px solid var(--color-border-primary) !important;
+  box-shadow: var(--shadow-xs) !important;
+
+  &:hover:not(:disabled):not(.disabled) {
+    background-color: var(--color-surface-hover);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:active:not(:disabled):not(.disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs);
+  }
+
+  .mat-icon {
+    color: var(--color-text-primary) !important;
+  }
+}
+
+.app-button.danger,
+button.app-button.danger,
+.app-button[class*='danger'],
+button[class*='danger'] {
+  background: var(
+    --gradient-danger,
+    linear-gradient(135deg, var(--color-error), var(--color-error-dark))
+  ) !important;
+  background-image: var(
+    --gradient-danger,
+    linear-gradient(135deg, var(--color-error), var(--color-error-dark))
+  ) !important;
+  color: var(--color-white) !important;
+  box-shadow: var(--shadow-sm) !important;
+
+  &:hover:not(:disabled):not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active:not(:disabled):not(.disabled) {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .mat-icon {
+    color: var(--color-white) !important;
+  }
+}
+
+/* Estados especiais */
+.app-button:focus {
+  outline: none;
+}
+
+.app-button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .app-button {
+    font-size: var(--font-size-xs);
+    padding: 0 var(--space-3);
+    min-height: 40px;
+
+    .mat-icon {
+      font-size: var(--font-size-base);
+      width: var(--font-size-base);
+      height: var(--font-size-base);
+    }
+  }
+}
+
+/* Animações */
+@keyframes buttonPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.app-button:not(:disabled):not(.disabled):hover {
+  animation: buttonPulse var(--transition-fast) ease;
+}
+
+/* Transições suaves para mudanças de tema */
+.app-button * {
+  transition: color var(--transition-normal),
+    background-color var(--transition-normal),
+    border-color var(--transition-normal);
+}

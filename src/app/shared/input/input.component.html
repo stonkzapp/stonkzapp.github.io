@@ -1,0 +1,24 @@
+<mat-form-field
+  class="custom-input"
+  [ngClass]="{ error: hasError }"
+  appearance="outline"
+  [ngStyle]="{ width: width, height: height }">
+  <mat-label>{{ label }}</mat-label>
+  <input
+    matInput
+    [type]="type === 'password' && !isPasswordVisible ? 'password' : 'text'"
+    [formControl]="control"
+    [placeholder]="placeholder"
+    [mask]="mask"
+    (focus)="focused = true"
+    (blur)="focused = false" />
+
+  <mat-icon
+    *ngIf="type === 'password'"
+    matSuffix
+    (click)="togglePasswordVisibility()">
+    {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+  </mat-icon>
+
+  <mat-error *ngIf="hasError">{{ errorMessage }}</mat-error>
+</mat-form-field>

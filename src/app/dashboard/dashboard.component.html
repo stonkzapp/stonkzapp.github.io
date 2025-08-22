@@ -1,0 +1,16 @@
+<section class="dashboard-container">
+  <app-sidebar></app-sidebar>
+
+  <div class="dashboard-content">
+    <app-header
+      [pageTitle]="getCurrentPageTitle()"
+      [showBackButton]="shouldShowBackButton()">
+    </app-header>
+
+    <main class="dashboard-main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <app-mobile-menu></app-mobile-menu>
+</section>

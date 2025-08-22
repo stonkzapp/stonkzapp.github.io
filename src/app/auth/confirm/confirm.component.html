@@ -1,0 +1,39 @@
+<div class="confirm-container">
+  @if (isMobile) {
+  <div class="confirm-left">
+    <img src="register/confirm.svg" alt="confirm Image" class="confirm-image" />
+  </div>
+  }
+
+  <div class="confirm-right">
+    <section class="confirm-card">
+      <div class="logo-section">
+        <img src="logo.svg" alt="Stonkz Logo" class="logo" />
+      </div>
+      <h2 class="confirm-title">Confirme seu cadastro</h2>
+      <p class="confirm-subtitle">
+        Digite o código que enviamos para o seu e-mail.
+      </p>
+
+      <form [formGroup]="confirmForm" (ngSubmit)="onConfirm()">
+        <app-input
+          label="Código"
+          placeholder="Digite o código"
+          type="text"
+          mask="000-000"
+          [control]="confirmForm.controls.token"></app-input>
+
+        <app-button
+          [label]="'Confirmar'"
+          [disabled]="confirmForm.invalid || isLoading()"
+          [loading]="isLoading()">
+        </app-button>
+      </form>
+
+      <p class="resend-text">
+        Não recebeu o código?
+        <a (click)="onResendToken()" class="resend-link">Reenviar</a>
+      </p>
+    </section>
+  </div>
+</div>

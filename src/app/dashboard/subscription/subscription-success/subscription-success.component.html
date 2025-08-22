@@ -1,0 +1,91 @@
+<div class="success-container">
+  <div class="success-content">
+    @if (isLoading) {
+    <div class="loading-section">
+      <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+      <h2>Processando seu pagamento...</h2>
+      <p>Aguarde enquanto confirmamos sua assinatura.</p>
+    </div>
+    } @else if (isSuccess) {
+    <div class="success-section">
+      <div class="success-icon">
+        <mat-icon>check_circle</mat-icon>
+      </div>
+
+      <h1>Pagamento Aprovado!</h1>
+      <p class="success-message">
+        Sua assinatura foi ativada com sucesso. Agora você tem acesso completo a
+        todas as funcionalidades PRO.
+      </p>
+
+      <div class="subscription-details">
+        <h3>Detalhes da Assinatura</h3>
+        <div class="detail-item">
+          <span class="label">Status:</span>
+          <span class="value success">Ativo</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Plano:</span>
+          <span class="value">PRO</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Próximo pagamento:</span>
+          <span class="value">{{
+            getNextPaymentDate() | date : 'dd/MM/yyyy'
+          }}</span>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <app-button
+          label="Ir para Dashboard"
+          iconLeft="dashboard"
+          color="primary"
+          [width]="'200px'"
+          [height]="'48px'"
+          (click)="goToDashboard()">
+        </app-button>
+
+        <app-button
+          label="Ver Perfil"
+          iconLeft="person"
+          color="secondary"
+          [width]="'200px'"
+          [height]="'48px'"
+          (click)="goToProfile()">
+        </app-button>
+      </div>
+
+      <div class="redirect-message">
+        <p>
+          Você será redirecionado automaticamente para o dashboard em alguns
+          segundos...
+        </p>
+      </div>
+    </div>
+    } @else {
+    <div class="error-section">
+      <div class="error-icon">
+        <mat-icon>error</mat-icon>
+      </div>
+
+      <h1>Erro no Processamento</h1>
+      <p class="error-message">
+        Ocorreu um erro ao processar seu pagamento. Entre em contato com o
+        suporte se o problema persistir.
+      </p>
+
+      <div class="action-buttons">
+        <app-button
+          label="Tentar Novamente"
+          iconLeft="refresh"
+          color="primary"
+          [width]="'200px'"
+          [height]="'48px'"
+          (click)="goToProfile()">
+        </app-button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

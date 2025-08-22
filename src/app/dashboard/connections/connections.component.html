@@ -1,0 +1,257 @@
+<div class="connections-container">
+  <!-- Header da página -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-info">
+        <h1 class="page-title">
+          <mat-icon class="title-icon">link</mat-icon>
+          Conexões
+        </h1>
+        <p class="page-description">
+          Conecte suas contas e corretoras para uma análise completa e
+          automática do seu portfólio
+        </p>
+      </div>
+      <div class="header-stats">
+        <div class="stat-card">
+          <div class="stat-number">{{ connectedCount() }}</div>
+          <div class="stat-label">Conectadas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ connectionProviders.length }}</div>
+          <div class="stat-label">Disponíveis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de benefícios -->
+  <div class="benefits-section">
+    <h2 class="section-title">
+      <mat-icon>star</mat-icon>
+      Por que conectar suas contas?
+    </h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <mat-icon class="benefit-icon">sync</mat-icon>
+        <h3>Sincronização Automática</h3>
+        <p>
+          Seus dados são atualizados automaticamente sem necessidade de inserção
+          manual
+        </p>
+      </div>
+      <div class="benefit-card">
+        <mat-icon class="benefit-icon">analytics</mat-icon>
+        <h3>Análises Precisas</h3>
+        <p>
+          Obtenha análises mais precisas com dados oficiais das suas corretoras
+        </p>
+      </div>
+      <div class="benefit-card">
+        <mat-icon class="benefit-icon">security</mat-icon>
+        <h3>Segurança Total</h3>
+        <p>Utilizamos as mais altas tecnologias de segurança e criptografia</p>
+      </div>
+      <!-- <div class="benefit-card">
+        <mat-icon class="benefit-icon">schedule</mat-icon>
+        <h3>Tempo Real</h3>
+        <p>Acompanhe suas posições e movimentações em tempo real</p>
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Lista de provedores -->
+  <div class="providers-section">
+    <h2 class="section-title">
+      <mat-icon>account_balance</mat-icon>
+      Provedores Disponíveis
+    </h2>
+
+    <!-- Filtros -->
+    <div class="filters-container">
+      <div class="filters-chips">
+        <button
+          class="filter-chip"
+          [class.active]="selectedFilter() === 'all'"
+          (click)="applyFilter('all')">
+          Todos ({{ getFilterCount('all') }})
+        </button>
+        <button
+          *ngIf="isFilterEnabled('broker')"
+          class="filter-chip"
+          [class.active]="selectedFilter() === 'broker'"
+          (click)="applyFilter('broker')">
+          Corretoras ({{ getFilterCount('broker') }})
+        </button>
+        <button
+          *ngIf="isFilterEnabled('bank')"
+          class="filter-chip"
+          [class.active]="selectedFilter() === 'bank'"
+          (click)="applyFilter('bank')">
+          Bancos ({{ getFilterCount('bank') }})
+        </button>
+        <button
+          *ngIf="isFilterEnabled('b3')"
+          class="filter-chip"
+          [class.active]="selectedFilter() === 'b3'"
+          (click)="applyFilter('b3')">
+          Bolsa ({{ getFilterCount('b3') }})
+        </button>
+        <button
+          *ngIf="isFilterEnabled('exchange')"
+          class="filter-chip"
+          [class.active]="selectedFilter() === 'exchange'"
+          (click)="applyFilter('exchange')">
+          Exchange ({{ getFilterCount('exchange') }})
+        </button>
+      </div>
+    </div>
+
+    <!-- Grid de provedores -->
+    <div class="providers-grid">
+      <mat-card
+        *ngFor="let provider of filteredProviders(); trackBy: trackByProviderId"
+        class="provider-card"
+        [ngClass]="{
+          connected: provider.status === 'connected',
+          connecting: provider.status === 'connecting',
+          error: provider.status === 'error',
+          'coming-soon': provider.comingSoon,
+          popular: provider.isPopular
+        }">
+        <!-- Badge popular -->
+        <div *ngIf="provider.isPopular" class="popular-badge">
+          <mat-icon>star</mat-icon>
+          Popular
+        </div>
+
+        <!-- Badge em breve -->
+        <div *ngIf="provider.comingSoon" class="coming-soon-badge">
+          Em breve
+        </div>
+
+        <mat-card-header>
+          <div class="provider-logo">
+            <div class="provider-emoji">
+              {{ provider.logo }}
+            </div>
+          </div>
+          <mat-card-title>{{ provider.name }}</mat-card-title>
+          <mat-card-subtitle>
+            <mat-chip class="type-chip" [color]="getTypeColor(provider.type)">
+              {{ getTypeLabel(provider.type) }}
+            </mat-chip>
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="provider-description">{{ provider.description }}</p>
+
+          <div class="features-list">
+            <h4>Funcionalidades:</h4>
+            <ul>
+              <li *ngFor="let feature of provider.features">
+                <mat-icon class="feature-icon">check</mat-icon>
+                {{ feature }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="status-indicator">
+            <mat-icon
+              [color]="getStatusColor(provider.status)"
+              [class.rotating]="provider.status === 'connecting'">
+              {{ getStatusIcon(provider.status) }}
+            </mat-icon>
+            <span class="status-text" [ngClass]="'status-' + provider.status">
+              {{
+                provider.status === 'connected'
+                  ? 'Conectado'
+                  : provider.status === 'connecting'
+                  ? 'Conectando...'
+                  : provider.status === 'error'
+                  ? 'Erro na conexão'
+                  : 'Não conectado'
+              }}
+            </span>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          <div class="action-buttons">
+            <button
+              *ngIf="
+                provider.status === 'disconnected' ||
+                provider.status === 'error'
+              "
+              mat-raised-button
+              color="primary"
+              class="action-btn connect-btn"
+              [disabled]="isLoading() || provider.comingSoon"
+              (click)="connectProvider(provider)">
+              <mat-icon>link</mat-icon>
+              <span>{{ provider.comingSoon ? 'Em breve' : 'Conectar' }}</span>
+            </button>
+
+            <button
+              *ngIf="provider.status === 'connected'"
+              mat-stroked-button
+              color="warn"
+              class="action-btn disconnect-btn"
+              (click)="disconnectProvider(provider)">
+              <mat-icon>link_off</mat-icon>
+              <span>Desconectar</span>
+            </button>
+
+            <button
+              *ngIf="provider.status === 'connecting'"
+              mat-stroked-button
+              class="action-btn connecting-btn"
+              disabled>
+              <mat-icon class="rotating">sync</mat-icon>
+              <span>Conectando...</span>
+            </button>
+
+            <button
+              *ngIf="provider.status === 'error'"
+              mat-stroked-button
+              color="warn"
+              class="action-btn retry-btn"
+              (click)="connectProvider(provider)">
+              <mat-icon>refresh</mat-icon>
+              <span>Tentar novamente</span>
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Seção de ajuda -->
+  <div class="help-section">
+    <mat-card class="help-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>help</mat-icon>
+        <mat-card-title>Precisa de ajuda?</mat-card-title>
+        <mat-card-subtitle>Tire suas dúvidas sobre conexões</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          Se você encontrar problemas para conectar suas contas ou tiver dúvidas
+          sobre segurança, confira nossa central de ajuda ou entre em contato
+          conosco.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button routerLink="/dashboard/profile/help">
+          <mat-icon>help_center</mat-icon>
+          Central de Ajuda
+        </button>
+        <button mat-button>
+          <mat-icon>mail</mat-icon>
+          Contato
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

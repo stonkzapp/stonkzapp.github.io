@@ -1,0 +1,158 @@
+<section class="sidebar-container" aria-label="Menu lateral">
+  <nav class="sidenav" aria-orientation="vertical">
+    <!-- Conteúdo scrollável -->
+    <div class="sidebar-content">
+      <!-- Logo -->
+      <div class="logo-container">
+        <div class="logo-wrapper">
+          <img [src]="logoPath" alt="Logo" class="logo" />
+        </div>
+      </div>
+
+      <!-- Menu Principal -->
+      <div class="menu-section">
+        <h3 class="menu-section-title">PRINCIPAL</h3>
+        <div class="menu" role="list">
+          <a
+            *ngFor="let item of mainMenuItems; let i = index"
+            [ngClass]="{
+              selected: selectedIndex === i,
+              'premium-item': item.isPremium,
+              'new-item': item.isNew
+            }"
+            (click)="handleMenuClick(item, i)"
+            class="menu-item"
+            role="listitem">
+            <div class="menu-item-content">
+              <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+              <span class="menu-label">{{ item.label }}</span>
+              <div class="menu-item-badges">
+                <span *ngIf="item.isNew" class="badge-new">NEW</span>
+                <span *ngIf="item.isPremium" class="badge-premium">PRO</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Menu de Análises -->
+      <div class="menu-section">
+        <h3 class="menu-section-title">ANÁLISES</h3>
+        <div class="menu" role="list">
+          <a
+            *ngFor="let item of analysisMenuItems; let i = index"
+            [ngClass]="{
+              selected: selectedIndex === i + mainMenuItems.length,
+              'premium-item': item.isPremium,
+              'new-item': item.isNew
+            }"
+            (click)="handleMenuClick(item, i + mainMenuItems.length)"
+            class="menu-item"
+            role="listitem">
+            <div class="menu-item-content">
+              <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+              <span class="menu-label">{{ item.label }}</span>
+              <div class="menu-item-badges">
+                <span *ngIf="item.isNew" class="badge-new">NEW</span>
+                <span *ngIf="item.isPremium" class="badge-premium">PRO</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Menu de Relatórios -->
+      <div class="menu-section">
+        <h3 class="menu-section-title">RELATÓRIOS</h3>
+        <div class="menu" role="list">
+          <a
+            *ngFor="let item of reportsMenuItems; let i = index"
+            [ngClass]="{
+              selected:
+                selectedIndex ===
+                i + mainMenuItems.length + analysisMenuItems.length,
+              'premium-item': item.isPremium,
+              'new-item': item.isNew
+            }"
+            (click)="
+              handleMenuClick(
+                item,
+                i + mainMenuItems.length + analysisMenuItems.length
+              )
+            "
+            class="menu-item"
+            role="listitem">
+            <div class="menu-item-content">
+              <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+              <span class="menu-label">{{ item.label }}</span>
+              <div class="menu-item-badges">
+                <span *ngIf="item.isNew" class="badge-new">NEW</span>
+                <span *ngIf="item.isPremium" class="badge-premium">PRO</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Menu de Configurações -->
+      <!-- <div class="menu-section">
+        <h3 class="menu-section-title">CONFIGURAÇÕES</h3>
+        <div class="menu" role="list">
+          <a
+            *ngFor="let item of settingsMenuItems; let i = index"
+            [ngClass]="{
+              selected:
+                selectedIndex ===
+                i +
+                  mainMenuItems.length +
+                  analysisMenuItems.length +
+                  reportsMenuItems.length,
+              'premium-item': item.isPremium,
+              'new-item': item.isNew
+            }"
+            (click)="
+              handleMenuClick(
+                item,
+                i +
+                  mainMenuItems.length +
+                  analysisMenuItems.length +
+                  reportsMenuItems.length
+              )
+            "
+            class="menu-item"
+            role="listitem">
+            <div class="menu-item-content">
+              <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+              <span class="menu-label">{{ item.label }}</span>
+              <div class="menu-item-badges">
+                <span *ngIf="item.isNew" class="badge-new">NEW</span>
+                <span *ngIf="item.isPremium" class="badge-premium">PRO</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- Footer fixo -->
+    <div class="sidebar-footer">
+      <!-- Theme Toggle -->
+      <button
+        mat-icon-button
+        (click)="toggleTheme()"
+        class="theme-toggle-button"
+        aria-label="Alternar tema">
+        <mat-icon>{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+      </button>
+
+      <!-- Upgrade Button -->
+      <button
+        *ngIf="!isPremiumUser"
+        (click)="upgradeToPremium()"
+        class="upgrade-button">
+        <mat-icon>rocket_launch</mat-icon>
+        <span>Upgrade PRO</span>
+      </button>
+    </div>
+  </nav>
+</section>

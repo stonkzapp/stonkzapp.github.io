@@ -1,0 +1,390 @@
+<div class="toast-demo">
+  <div class="demo-header">
+    <h1>🧪 Demonstração dos Toasts</h1>
+    <p>Teste todos os tipos de notificações disponíveis no sistema</p>
+  </div>
+
+  <!-- Toasts Básicos -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>notifications</mat-icon>
+        Toasts Básicos
+      </mat-card-title>
+      <mat-card-subtitle>Notificações padrão do sistema</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="✅ Sucesso"
+          iconLeft="check_circle"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showSuccessToast()">
+        </app-button>
+
+        <app-button
+          label="❌ Erro"
+          iconLeft="error"
+          color="danger"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showErrorToast()">
+        </app-button>
+
+        <app-button
+          label="ℹ️ Informação"
+          iconLeft="info"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showInfoToast()">
+        </app-button>
+
+        <app-button
+          label="⚠️ Aviso"
+          iconLeft="warning"
+          color="secondary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showWarningToast()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts Especiais -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>star</mat-icon>
+        Toasts Especiais
+      </mat-card-title>
+      <mat-card-subtitle
+        >Notificações com design diferenciado</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="🎉 Premium"
+          iconLeft="workspace_premium"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showPremiumToast()">
+        </app-button>
+
+        <app-button
+          label="🏆 Conquista"
+          iconLeft="emoji_events"
+          color="secondary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showAchievementToast()">
+        </app-button>
+
+        <app-button
+          label="👋 Boas-vindas"
+          iconLeft="waving_hand"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showWelcomeToast()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts de Sistema -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>settings</mat-icon>
+        Toasts de Sistema
+      </mat-card-title>
+      <mat-card-subtitle
+        >Notificações relacionadas ao sistema</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="🔄 Atualização"
+          iconLeft="system_update"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showSystemUpdate()">
+        </app-button>
+
+        <app-button
+          label="📡 Sincronização"
+          iconLeft="sync"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showDataSync()">
+        </app-button>
+
+        <app-button
+          label="🌐 Conexão"
+          iconLeft="wifi"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showConnectionStatus()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts de Validação -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>verified</mat-icon>
+        Toasts de Validação
+      </mat-card-title>
+      <mat-card-subtitle
+        >Notificações de formulários e validações</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="⚠️ Erro de Validação"
+          iconLeft="error_outline"
+          color="secondary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showValidationError()">
+        </app-button>
+
+        <app-button
+          label="✅ Formulário Enviado"
+          iconLeft="send"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showFormSuccess()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts de Ação -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>touch_app</mat-icon>
+        Toasts de Ação
+      </mat-card-title>
+      <mat-card-subtitle
+        >Notificações que requerem interação do usuário</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="⚡ Ação Necessária"
+          iconLeft="flash_on"
+          color="secondary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showActionRequired()">
+        </app-button>
+
+        <app-button
+          label="❓ Confirmação"
+          iconLeft="help"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showConfirmation()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts de Progresso -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>trending_up</mat-icon>
+        Toasts de Progresso
+      </mat-card-title>
+      <mat-card-subtitle>Notificações com barra de progresso</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="⏳ Progresso"
+          iconLeft="hourglass_empty"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showProgressToast()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts de Notificação -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>campaign</mat-icon>
+        Toasts de Notificação
+      </mat-card-title>
+      <mat-card-subtitle>Notificações personalizadas</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="🎯 Meta Atingida"
+          iconLeft="target"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showCustomNotification()">
+        </app-button>
+
+        <app-button
+          label="💬 Feedback"
+          iconLeft="chat"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showFeedbackToast()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts Rápidos -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>speed</mat-icon>
+        Toasts Rápidos
+      </mat-card-title>
+      <mat-card-subtitle>Notificações de duração reduzida</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="🚀 Todos os Rápidos"
+          iconLeft="rocket_launch"
+          color="secondary"
+          [width]="'200px'"
+          [height]="'40px'"
+          (click)="showQuickToasts()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Toasts de Teste -->
+  <mat-card class="demo-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>science</mat-icon>
+        Toasts de Teste
+      </mat-card-title>
+      <mat-card-subtitle>Para desenvolvimento e testes</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="🧪 Toast de Teste"
+          iconLeft="bug_report"
+          color="secondary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showTestToast()">
+        </app-button>
+
+        <app-button
+          label="🎭 Todos os Tipos"
+          iconLeft="theater_comedy"
+          color="primary"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="showAllTypes()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Utilitários -->
+  <mat-card class="demo-section utility-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>build</mat-icon>
+        Utilitários
+      </mat-card-title>
+      <mat-card-subtitle
+        >Ferramentas para gerenciar os toasts</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="button-grid">
+        <app-button
+          label="🗑️ Limpar Todos"
+          iconLeft="clear_all"
+          color="danger"
+          [width]="'150px'"
+          [height]="'40px'"
+          (click)="clearAllToasts()">
+        </app-button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Instruções -->
+  <mat-card class="demo-section instructions-section">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>help</mat-icon>
+        Como Usar
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="instructions">
+        <p>
+          <strong>1.</strong> Clique em qualquer botão para testar o tipo de
+          toast correspondente
+        </p>
+        <p>
+          <strong>2.</strong> Os toasts aparecerão no canto superior direito
+          (desktop) ou na parte inferior (mobile)
+        </p>
+        <p>
+          <strong>3.</strong> Use o botão "Limpar Todos" para remover todos os
+          toasts ativos
+        </p>
+        <p>
+          <strong>4.</strong> Alguns toasts têm ações interativas - teste
+          clicando nos botões dentro deles
+        </p>
+        <p>
+          <strong>5.</strong> Os toasts são responsivos e se adaptam ao tamanho
+          da tela
+        </p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

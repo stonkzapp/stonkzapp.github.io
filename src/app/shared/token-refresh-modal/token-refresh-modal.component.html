@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>
+  {{
+    data.isTokenExpiringSoon
+      ? 'Ops, seu token está prestes a expirar!'
+      : 'Token Expirado!'
+  }}
+</h2>
+
+<mat-dialog-content>
+  <p>
+    {{
+      data.isTokenExpiringSoon
+        ? 'Seu token de acesso está prestes a expirar. Gostaria de atualizá-lo para continuar usando a aplicação?'
+        : 'Seu token de acesso expirou. Você precisa fazer login novamente para continuar.'
+    }}
+  </p>
+  <p *ngIf="!data.isTokenExpiringSoon">
+    Não se preocupe, basta fazer login novamente! 😊
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="close()" *ngIf="data.isTokenExpiringSoon">
+    Cancelar
+  </button>
+  <button
+    mat-button
+    color="primary"
+    (click)="refreshToken()"
+    *ngIf="data.isTokenExpiringSoon">
+    Sim, atualizar
+  </button>
+  <button
+    mat-button
+    color="primary"
+    (click)="goToLogin()"
+    *ngIf="!data.isTokenExpiringSoon">
+    Fazer login novamente
+  </button>
+</mat-dialog-actions>

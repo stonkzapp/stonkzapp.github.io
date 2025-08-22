@@ -1,0 +1,106 @@
+.F-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 100vh; /* Garante que ocupe toda a altura da tela */
+  width: 100%;
+  overflow: hidden;
+}
+
+.confirm-left {
+  flex: 7; /* A imagem vai ocupar 7 partes do layout */
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Coluna direita para o formulário - ocupa 30% da tela */
+.confirm-right {
+  flex: 3; /* O formulário vai ocupar 3 partes do layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Garante que o formulário ocupe toda a altura da tela */
+  overflow-y: auto; /* Permite rolagem vertical se necessário */
+}
+
+/* Estilo para a logo dentro do card */
+.logo-section {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 163px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.confirm-image {
+  width: 100%;
+  height: 100vh; /* A altura é 100% da tela */
+  object-fit: cover; /* A imagem vai cobrir completamente a área sem distorção */
+  object-position: top; /* Centraliza a imagem */
+}
+
+.confirm-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  text-align: center;
+
+  form {
+    display: grid;
+    row-gap: 16px;
+  }
+}
+
+.confirm-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.confirm-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.resend-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.resend-link {
+  color: var(--color-primary);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.resend-link:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .confirm-container {
+    flex-direction: column; /* Coloca a imagem e o formulário em colunas */
+  }
+
+  .confirm-left {
+    display: none; /* Remove a imagem em dispositivos móveis */
+  }
+
+  .confirm-right {
+    align-items: flex-start;
+    margin-top: 24px;
+    width: 100%;
+    height: auto; /* Deixa a altura do formulário ajustar conforme o conteúdo */
+  }
+
+  .confirm-card {
+    padding: 15px;
+  }
+}
