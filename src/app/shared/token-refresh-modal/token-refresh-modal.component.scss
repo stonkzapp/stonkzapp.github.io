@@ -1,0 +1,18 @@
+::ng-deep .mat-dialog-container {
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+::ng-deep .mat-dialog-title {
+  font-weight: bold;
+}
+
+::ng-deep .mat-dialog-content {
+  font-size: 14px;
+}
+
+::ng-deep .mat-dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}

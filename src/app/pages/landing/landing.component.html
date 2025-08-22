@@ -1,0 +1,269 @@
+<!-- Header da Landing Page -->
+<header class="landing-header">
+  <div class="header-container">
+    <div class="logo-section">
+      <img src="logo-stonkz.svg" alt="Stonkz Logo" class="logo" />
+    </div>
+
+    <nav class="header-nav">
+      <a (click)="scrollToSection('features')" class="nav-link"
+        >Funcionalidades</a
+      >
+      <a (click)="scrollToSection('pricing')" class="nav-link">Planos</a>
+      <a (click)="scrollToSection('about')" class="nav-link">Sobre</a>
+    </nav>
+
+    <div class="header-actions">
+      <button
+        mat-icon-button
+        class="theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="
+          isDarkMode()
+            ? 'Alternar para modo claro'
+            : 'Alternar para modo escuro'
+        ">
+        <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+      <button mat-button class="btn-login" (click)="goToLogin()">Entrar</button>
+      <button mat-raised-button class="btn-register" (click)="goToRegister()">
+        Começar Grátis
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Gerencie seus investimentos com
+        <span class="highlight">profissionalismo</span>
+      </h1>
+      <p class="hero-description">
+        A plataforma web mais completa para controle de carteiras de
+        investimentos no Brasil. Dados da B3 e CVM atualizados diariamente,
+        análises avançadas e insights para suas decisões.
+      </p>
+      <div class="hero-actions">
+        <button mat-raised-button class="btn-primary" (click)="goToRegister()">
+          Começar Grátis
+        </button>
+        <button
+          mat-button
+          class="btn-secondary"
+          (click)="scrollToSection('features')">
+          Conhecer Funcionalidades
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <img
+        src="login/login.svg"
+        alt="Dashboard Stonkz"
+        class="dashboard-preview" />
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features-section">
+  <div class="features-container">
+    <div class="section-header">
+      <h2 class="section-title">Por que escolher o Stonkz?</h2>
+      <p class="section-description">
+        Ferramentas profissionais para investidores que querem tomar decisões
+        informadas
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon">
+          <mat-icon>{{ feature.icon }}</mat-icon>
+        </div>
+        <div class="feature-header">
+          <h3 class="feature-title">{{ feature.title }}</h3>
+          <div class="coming-soon-badge" *ngIf="feature.comingSoon">
+            Em breve
+          </div>
+        </div>
+        <p class="feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="pricing-section">
+  <div class="pricing-container">
+    <div class="section-header">
+      <h2 class="section-title">Escolha seu plano</h2>
+      <p class="section-description">
+        Comece grátis e evolua conforme suas necessidades
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <div
+        class="plan-card"
+        *ngFor="let plan of plans"
+        [class.popular]="plan.popular">
+        <div class="plan-header">
+          <h3 class="plan-name">{{ plan.name }}</h3>
+          <div class="plan-price">
+            <span class="price-amount">{{ plan.price }}</span>
+            <span class="price-period">{{ plan.period }}</span>
+          </div>
+          <div class="popular-badge" *ngIf="plan.popular">Mais Popular</div>
+        </div>
+
+        <ul class="plan-features">
+          <li *ngFor="let feature of plan.features">
+            <mat-icon class="check-icon">check_circle</mat-icon>
+            {{ feature }}
+          </li>
+        </ul>
+
+        <button
+          mat-raised-button
+          [class]="'btn-' + plan.buttonColor"
+          (click)="plan.name === 'PRO' ? goToSubscription() : goToRegister()">
+          {{ plan.buttonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="about-section">
+  <div class="about-container">
+    <div class="section-header">
+      <h2 class="section-title">Sobre a Stonkz</h2>
+      <p class="section-description">
+        Empoderando investidores brasileiros com tecnologia e dados de qualidade
+      </p>
+    </div>
+
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          A Stonkz nasceu da necessidade de democratizar o acesso a ferramentas
+          profissionais de gestão de investimentos. Nossa plataforma web integra
+          dados oficiais da B3, CVM e outras fontes confiáveis, atualizados
+          diariamente, para fornecer análises precisas e insights valiosos.
+        </p>
+        <p>
+          Acreditamos que cada investidor merece ter acesso a informações de
+          qualidade e ferramentas que facilitem suas decisões de investimento,
+          independentemente do seu nível de experiência. Atualmente focamos na
+          plataforma web, com apps mobile em desenvolvimento.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-number">10k+</div>
+          <div class="stat-label">Usuários Ativos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">R$ 50M+</div>
+          <div class="stat-label">Carteiras Gerenciadas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="cta-container">
+    <h2 class="cta-title">Pronto para começar?</h2>
+    <p class="cta-description">
+      Junte-se a milhares de investidores que já confiam no Stonkz
+    </p>
+    <p class="cta-subtitle">
+      <strong>MVP Web disponível agora!</strong> App iOS e Android em breve.
+    </p>
+    <div class="cta-actions">
+      <button mat-raised-button class="btn-primary" (click)="goToRegister()">
+        Criar Conta Grátis
+      </button>
+      <button mat-button class="btn-secondary" (click)="goToLogin()">
+        Já tenho conta
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="landing-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <img
+            src="logo-stonkz.svg"
+            alt="Stonkz Logo"
+            class="footer-logo-img" />
+        </div>
+        <p class="footer-description">
+          A plataforma web mais completa para gestão de investimentos no Brasil
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-title">Produto</h4>
+        <ul class="footer-links">
+          <li><a (click)="scrollToSection('features')">Funcionalidades</a></li>
+          <li><a (click)="scrollToSection('pricing')">Planos</a></li>
+          <li><a (click)="scrollToSection('about')">Sobre</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-title">Suporte</h4>
+        <ul class="footer-links">
+          <li><a href="mailto:suporte@stonkz.com.br">Suporte</a></li>
+          <li><a href="mailto:contato@stonkz.com.br">Contato</a></li>
+          <li><a (click)="scrollToSection('about')">Sobre</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4 class="footer-title">Legal</h4>
+        <ul class="footer-links">
+          <li><a routerLink="/terms">Termos de Uso</a></li>
+          <li><a routerLink="/privacy">Política de Privacidade</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <div class="footer-disclaimer">
+        <p class="disclaimer-text">
+          <strong>Importante:</strong> O StonkzApp não tem como objetivo a
+          recomendação e/ou sugestão de compra de ativos. Nosso site possui
+          caráter meramente informativo e educativo, sempre trazendo informações
+          de fontes públicas (B3, CVM, Banco Central, Tesouro Nacional, etc.),
+          deste modo, não nos responsabilizamos por qualquer decisão que o
+          investidor venha a tomar a partir das informações contidas em nosso
+          site.
+        </p>
+      </div>
+
+      <div class="footer-copyright">
+        <p>&copy; 2025 Stonkz. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,66 @@
+<div class="login-container">
+  @if (!isMobile) {
+  <div class="login-left">
+    <img src="login/login.svg" alt="Login Image" class="login-image" />
+  </div>
+  }
+
+  <div class="login-right">
+    <section class="login-card">
+      <div class="logo-section">
+        <img src="logo.svg" alt="Stonkz Logo" class="logo" />
+      </div>
+      <h2 class="login-title">
+        Entre ou
+        <a (click)="onRegister()" class="register-link">crie sua conta</a>
+      </h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <app-input
+          label="E-mail"
+          placeholder="Digite seu E-mail"
+          type="text"
+          [control]="loginForm.controls.email">
+        </app-input>
+
+        <app-input
+          label="Senha"
+          placeholder="Digite sua senha"
+          type="password"
+          [control]="loginForm.controls.password">
+        </app-input>
+
+        <div class="login-options">
+          <a (click)="onForgotPassword()" class="forgot-password-link"
+            >Esqueceu sua senha?</a
+          >
+        </div>
+
+        <app-button
+          [label]="'Entrar'"
+          [disabled]="loginForm.invalid || isLoading()"
+          [loading]="isLoading()"
+          [iconLeft]="null"
+          [iconRight]="null">
+        </app-button>
+      </form>
+    </section>
+  </div>
+</div>
+
+<!-- Adicionar após o formulário de login, antes do footer -->
+<div class="mock-credentials-info">
+  <div class="mock-badge">DEV</div>
+  <div class="mock-info">
+    <h4>Modo de Desenvolvimento</h4>
+    <p>Use estas credenciais para testar:</p>
+    <div class="credentials">
+      <strong>Email:</strong> appstonkz&#64;gmail.com<br />
+      <strong>Senha:</strong> Stonkz&#64;1
+    </div>
+    <small
+      >O sistema tentará primeiro o backend real, depois usará dados
+      simulados.</small
+    >
+  </div>
+</div>

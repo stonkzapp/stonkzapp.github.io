@@ -1,0 +1,83 @@
+<header class="app-header">
+  <!-- Área esquerda: Botão voltar e título da página -->
+  <div class="header-left">
+    @if (showBackButton) {
+    <button
+      mat-icon-button
+      class="back-button"
+      (click)="onBackClick()"
+      aria-label="Voltar">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    }
+
+    <div class="page-title-container">
+      @if (showBackButton || isDesktop()) {
+      <h1 class="page-title">{{ pageTitle }}</h1>
+      } @else {
+      <img src="logo.svg" alt="Stonkz" class="mobile-logo" />
+      }
+    </div>
+  </div>
+
+  <!-- Área direita: Ícones de ação -->
+  <div class="header-right">
+    <!-- Indicador de modo mock -->
+    @if (isMockMode) {
+    <div
+      class="mock-indicator"
+      title="Modo de desenvolvimento - Dados simulados">
+      <span class="mock-badge">DEV</span>
+    </div>
+    }
+
+    <!-- Botão modo texto (olhinho) -->
+    <button
+      mat-icon-button
+      class="action-button"
+      [class.active]="isTextMode()"
+      (click)="toggleTextMode()"
+      aria-label="Alternar modo texto">
+      <mat-icon>visibility</mat-icon>
+    </button>
+
+    <!-- Componente de notificações -->
+    <app-notifications></app-notifications>
+
+    <!-- Menu do usuário -->
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="userMenu"
+      class="action-button"
+      aria-label="Configurações">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <!-- Menu dropdown de configurações -->
+    <mat-menu #userMenu="matMenu" class="user-menu">
+      <!-- Informações do usuário -->
+      @if (currentUser) {
+      <div class="user-info">
+        <div class="user-name">{{ getUserName() }}</div>
+        <div class="user-email">{{ getUserEmail() }}</div>
+        @if (isMockMode) {
+        <div class="mock-mode-info">Modo de desenvolvimento</div>
+        }
+      </div>
+      <mat-divider></mat-divider>
+      }
+
+      <button mat-menu-item (click)="onProfileClick()">
+        <mat-icon>person</mat-icon>
+        <span>Meu Perfil</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button mat-menu-item (click)="onLogout()" class="logout-item">
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+  </div>
+</header>

@@ -1,0 +1,1 @@
+import{V as r}from"./chunk-KXY2N67X.js";var i=(()=>{class e{setEmail(t){sessionStorage.setItem("temp_email",t)}getEmail(){return sessionStorage.getItem("temp_email")}clear(){sessionStorage.removeItem("temp_email")}static{this.\u0275fac=function(o){return new(o||e)}}static{this.\u0275prov=r({token:e,factory:e.\u0275fac,providedIn:"root"})}}return e})();export{i as a};

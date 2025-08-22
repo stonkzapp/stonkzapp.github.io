@@ -1,0 +1,66 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+    <div class="profile-info">
+      <h1 class="profile-name">
+        Olá {{ userProfile?.firstName }} {{ userProfile?.lastName }}
+      </h1>
+      <p class="profile-email">{{ userProfile?.email }}</p>
+      <p class="profile-join-date">
+        Membro desde {{ userProfile?.joinDate | date : 'MMM yyyy' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="profile-settings">
+    <h2 class="settings-title">Configurações da Conta</h2>
+
+    <div class="settings-grid">
+      <div
+        class="setting-card"
+        (click)="navigateTo('/dashboard/profile/details')">
+        <div class="setting-icon">
+          <mat-icon>person</mat-icon>
+        </div>
+        <span class="setting-label">Meu Perfil</span>
+      </div>
+
+      <div
+        class="setting-card"
+        (click)="navigateTo('/dashboard/profile/change-password')">
+        <div class="setting-icon">
+          <mat-icon>key</mat-icon>
+        </div>
+        <span class="setting-label">Alterar Senha</span>
+      </div>
+
+      <div
+        class="setting-card"
+        (click)="navigateTo('/dashboard/profile/subscription')">
+        <div class="setting-icon">
+          <mat-icon>workspace_premium</mat-icon>
+        </div>
+        <span class="setting-label">Planos de Assinatura</span>
+        <!-- <div class="premium-badge" *ngIf="hasActiveSubscription">PRO</div> -->
+      </div>
+
+      <div
+        class="setting-card"
+        (click)="navigateTo('/dashboard/profile/about')">
+        <div class="setting-icon">
+          <mat-icon>info</mat-icon>
+        </div>
+        <span class="setting-label">Sobre nós</span>
+      </div>
+
+      <div class="setting-card" (click)="navigateTo('/dashboard/profile/help')">
+        <div class="setting-icon">
+          <mat-icon>help</mat-icon>
+        </div>
+        <span class="setting-label">Ajuda</span>
+      </div>
+    </div>
+  </div>
+</div>

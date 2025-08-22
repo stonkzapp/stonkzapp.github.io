@@ -1,0 +1,68 @@
+<!-- Menu Mobile, visível em telas pequenas -->
+@if (isMobile && !isKeyboardOpen) {
+<div class="bottom-nav">
+  <!-- Menu Principal -->
+  @for (item of mainMenuItems; track item.route) {
+  <a [routerLink]="item.route" routerLinkActive="active" class="menu-item">
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <span class="menu-label">{{ item.label }}</span>
+    @if (item.isNew) {
+    <span class="badge-new">NEW</span>
+    }
+  </a>
+  }
+
+  <!-- Botão Premium -->
+  <button
+    (click)="showPremiumMenu()"
+    class="menu-item premium-toggle"
+    [ngClass]="{ 'premium-active': isPremiumMenuOpen }">
+    <mat-icon>rocket_launch</mat-icon>
+    <span class="menu-label">PRO</span>
+    <!-- <span class="badge-premium">PRO</span> -->
+  </button>
+
+  <!-- Botão de Tema -->
+  <button
+    mat-icon-button
+    (click)="toggleTheme()"
+    class="theme-btn"
+    [ngClass]="{ active: isDarkMode() }">
+    <mat-icon>{{ isDarkMode() ? 'dark_mode' : 'light_mode' }}</mat-icon>
+  </button>
+</div>
+
+<!-- Menu Premium Expandido -->
+@if (isPremiumMenuOpen) {
+<div class="premium-overlay" (click)="closePremiumMenu()">
+  <div class="premium-menu" (click)="$event.stopPropagation()">
+    <div class="premium-header">
+      <h3>Recursos Premium</h3>
+      <button (click)="closePremiumMenu()" class="close-btn">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="premium-items">
+      @for (item of premiumMenuItems; track item.route) {
+      <a (click)="handleMenuClick(item)" class="premium-item">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <div class="premium-item-content">
+          <span class="premium-label">{{ item.label }}</span>
+          @if (item.isNew) {
+          <span class="badge-new">NEW</span>
+          }
+        </div>
+      </a>
+      }
+    </div>
+
+    <div class="premium-footer">
+      <button (click)="upgradeToPremium()" class="upgrade-btn">
+        <mat-icon>rocket_launch</mat-icon>
+        <span>Upgrade PRO</span>
+      </button>
+    </div>
+  </div>
+</div>
+} }

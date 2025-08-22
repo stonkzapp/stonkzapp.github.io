@@ -1,0 +1,362 @@
+<div class="pricing-management">
+  <div class="page-header">
+    <h1>Gestão de Preços dos Planos</h1>
+    <p>Gerencie os preços e configurações dos seus planos de assinatura</p>
+  </div>
+
+  <!-- Botão para resetar dados mockados -->
+  <div class="actions-bar">
+    <app-button
+      label="Resetar Dados"
+      iconLeft="refresh"
+      color="secondary"
+      [width]="'150px'"
+      [height]="'40px'"
+      (click)="resetMockData()">
+    </app-button>
+  </div>
+
+  @if (isLoading) {
+  <div class="loading-section">
+    <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+    <p>Carregando configurações de preços...</p>
+  </div>
+  } @else {
+  <!-- Lista de Planos -->
+  <div class="plans-section">
+    <h2>Planos Disponíveis</h2>
+
+    @for (plan of plans; track plan.id) {
+    <mat-card class="plan-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>{{
+            plan.type === 'free' ? 'free_breakfast' : 'workspace_premium'
+          }}</mat-icon>
+          {{ plan.name }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ plan.description }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="plan-info">
+          <div class="plan-details">
+            <div class="detail-row">
+              <span class="label">Tipo:</span>
+              <span class="value">{{
+                plan.type === 'free' ? 'Gratuito' : 'Premium'
+              }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Preço Base:</span>
+              <span class="value">{{
+                formatPrice(plan.basePrice, plan.currency)
+              }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Status:</span>
+              <span
+                class="value"
+                [class.active]="plan.isActive"
+                [class.inactive]="!plan.isActive">
+                {{ plan.isActive ? 'Ativo' : 'Inativo' }}
+              </span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Funcionalidades:</span>
+              <span class="value"
+                >{{ plan.features.length }} funcionalidades</span
+              >
+            </div>
+          </div>
+
+          <div class="plan-actions">
+            <app-button
+              label="Editar Preço"
+              iconLeft="edit"
+              color="primary"
+              [width]="'140px'"
+              [height]="'36px'"
+              (click)="editPlan(plan)">
+            </app-button>
+          </div>
+        </div>
+
+        <!-- Formulário de Edição do Plano -->
+        @if (editingPlan?.id === plan.id) {
+        <div class="edit-form">
+          <form [formGroup]="planForm" (ngSubmit)="savePlan()">
+            <div class="form-row">
+              <mat-form-field>
+                <mat-label>Nome do Plano</mat-label>
+                <input
+                  matInput
+                  formControlName="name"
+                  placeholder="Nome do plano" />
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option value="free">Gratuito</mat-option>
+                  <mat-option value="premium">Premium</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="form-row">
+              <mat-form-field>
+                <mat-label>Preço Base</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="basePrice"
+                  placeholder="0.00"
+                  min="0"
+                  step="0.01" />
+                <mat-error
+                  *ngIf="planForm.get('basePrice')?.hasError('required')">
+                  Preço base é obrigatório
+                </mat-error>
+                <mat-error *ngIf="planForm.get('basePrice')?.hasError('min')">
+                  Preço deve ser maior ou igual a 0
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Moeda</mat-label>
+                <mat-select formControlName="currency">
+                  <mat-option value="BRL">Real (BRL)</mat-option>
+                  <mat-option value="USD">Dólar (USD)</mat-option>
+                  <mat-option value="EUR">Euro (EUR)</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field class="full-width">
+              <mat-label>Descrição</mat-label>
+              <textarea
+                matInput
+                formControlName="description"
+                placeholder="Descrição do plano"
+                rows="3"></textarea>
+            </mat-form-field>
+
+            <div class="form-actions">
+              <app-button
+                label="Salvar"
+                iconLeft="save"
+                color="primary"
+                [width]="'120px'"
+                [height]="'40px'"
+                [disabled]="!planForm.valid"
+                type="submit">
+              </app-button>
+
+              <app-button
+                label="Cancelar"
+                iconLeft="cancel"
+                color="secondary"
+                [width]="'120px'"
+                [height]="'40px'"
+                (click)="cancelEditPlan()">
+              </app-button>
+            </div>
+          </form>
+        </div>
+        }
+
+        <!-- Lista de SKUs do Plano -->
+        @if (plan.type === 'pro') {
+        <div class="skus-section">
+          <h4>Opções de Pagamento</h4>
+
+          @for (sku of getSKUsForPlan(plan.id); track sku.id) {
+          <div class="sku-item">
+            <div class="sku-info">
+              <div class="sku-header">
+                <span class="sku-name">{{ sku.name }}</span>
+                @if (sku?.isPopular) {
+                <span class="popular-badge">Mais Popular</span>
+                }
+              </div>
+
+              <div class="sku-pricing">
+                <span class="current-price">{{
+                  formatPrice(sku.price, sku.currency)
+                }}</span>
+                @if (sku.originalPrice && sku.originalPrice > sku.price) {
+                <span class="original-price">{{
+                  formatPrice(sku.originalPrice, sku.currency)
+                }}</span>
+                <span class="discount">-{{ sku.discountPercentage }}%</span>
+                }
+              </div>
+
+              <div class="sku-details">
+                <span class="period">{{
+                  getPeriodInPortuguese(sku.period)
+                }}</span>
+                @if (sku.originalPrice && sku.originalPrice > sku.price) {
+                <span class="savings">
+                  Economia de
+                  {{
+                    formatPrice(
+                      calculateSavings(sku.originalPrice, sku.price),
+                      sku.currency
+                    )
+                  }}
+                </span>
+                }
+              </div>
+            </div>
+
+            <div class="sku-actions">
+              <app-button
+                label="Editar"
+                iconLeft="edit"
+                color="secondary"
+                [width]="'100px'"
+                [height]="'32px'"
+                (click)="editSKU(sku)">
+              </app-button>
+            </div>
+          </div>
+
+          <!-- Formulário de Edição do SKU -->
+          @if (editingSKU?.id === sku.id) {
+          <div class="edit-sku-form">
+            <form [formGroup]="skuForm" (ngSubmit)="saveSKU()">
+              <div class="form-row">
+                <mat-form-field>
+                  <mat-label>Nome do SKU</mat-label>
+                  <input
+                    matInput
+                    formControlName="name"
+                    placeholder="Nome do SKU" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Período</mat-label>
+                  <mat-select formControlName="period">
+                    <mat-option value="monthly">Mensal</mat-option>
+                    <mat-option value="semiannual">Semestral</mat-option>
+                    <mat-option value="annual">Anual</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="form-row">
+                <mat-form-field>
+                  <mat-label>Preço</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="price"
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01" />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Preço Original</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="originalPrice"
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01" />
+                </mat-form-field>
+              </div>
+
+              <div class="form-row">
+                <mat-form-field>
+                  <mat-label>Desconto (%)</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="discountPercentage"
+                    placeholder="0"
+                    min="0"
+                    max="100" />
+                </mat-form-field>
+
+                <div class="checkbox-field">
+                  <mat-checkbox formControlName="isPopular">
+                    Marcar como mais popular
+                  </mat-checkbox>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <app-button
+                  label="Salvar"
+                  iconLeft="save"
+                  color="primary"
+                  [width]="'120px'"
+                  [height]="'40px'"
+                  [disabled]="!skuForm.valid"
+                  type="submit">
+                </app-button>
+
+                <app-button
+                  label="Cancelar"
+                  iconLeft="cancel"
+                  color="secondary"
+                  [width]="'120px'"
+                  [height]="'40px'"
+                  (click)="cancelEditSKU()">
+                </app-button>
+              </div>
+            </form>
+          </div>
+          } }
+        </div>
+        }
+      </mat-card-content>
+    </mat-card>
+    }
+  </div>
+
+  <!-- Informações do Sistema -->
+  <div class="system-info">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>info</mat-icon>
+          Como Funciona o Sistema de Preços
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="info-content">
+          <div class="info-item">
+            <h4>Preço Base</h4>
+            <p>
+              O preço base é o valor mensal do plano. Ao alterar este valor,
+              todos os SKUs são recalculados automaticamente.
+            </p>
+          </div>
+
+          <div class="info-item">
+            <h4>Descontos Automáticos</h4>
+            <p>
+              O sistema aplica automaticamente descontos: Semestral (-16%),
+              Anual (-25%).
+            </p>
+          </div>
+
+          <div class="info-item">
+            <h4>SKUs Personalizados</h4>
+            <p>
+              Você pode personalizar preços individuais de cada SKU,
+              sobrescrevendo os cálculos automáticos.
+            </p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  }
+</div>

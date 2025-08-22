@@ -1,0 +1,126 @@
+<div class="notifications-container">
+  <!-- Botão do sininho com badge -->
+  <button
+    mat-icon-button
+    class="notification-button"
+    [matMenuTriggerFor]="notificationMenu"
+    (click)="toggleMenu()"
+    [matTooltip]="'Notificações'"
+    [matBadge]="unreadCount() > 0 ? unreadCount() : ''"
+    [matBadgeHidden]="unreadCount() === 0"
+    matBadgeColor="primary"
+    [class.has-unread]="unreadCount() > 0">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <!-- Menu de notificações -->
+  <mat-menu #notificationMenu="matMenu" class="notification-menu">
+    <div class="notification-header">
+      <div class="header-content">
+        <h3 class="header-title">
+          <mat-icon>notifications</mat-icon>
+          Notificações
+        </h3>
+        <div class="header-actions">
+          <button
+            mat-icon-button
+            class="action-button"
+            (click)="markAllAsRead()"
+            [disabled]="unreadCount() === 0"
+            [matTooltip]="'Marcar todas como lidas'">
+            <mat-icon>done_all</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            class="action-button"
+            (click)="clearAllNotifications()"
+            [disabled]="notifications().length === 0"
+            [matTooltip]="'Limpar todas'">
+            <mat-icon>clear_all</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- Lista de notificações -->
+    <div class="notifications-list">
+      <div
+        *ngFor="
+          let notification of notifications();
+          trackBy: trackByNotificationId
+        "
+        class="notification-item"
+        [class.unread]="!notification.isRead"
+        [class.read]="notification.isRead">
+        <!-- Emoji e conteúdo -->
+        <div
+          class="notification-content"
+          (click)="navigateToNotification(notification)">
+          <div class="notification-emoji">{{ notification.emoji }}</div>
+          <div class="notification-details">
+            <div class="notification-header-row">
+              <h4 class="notification-title">{{ notification.title }}</h4>
+              <span class="notification-time">{{
+                formatTimestamp(notification.timestamp)
+              }}</span>
+            </div>
+            <p class="notification-description">
+              {{ notification.description }}
+            </p>
+
+            <!-- CTA Button -->
+            <button
+              *ngIf="notification.action"
+              mat-stroked-button
+              class="notification-cta"
+              (click)="navigateToNotification(notification)">
+              <mat-icon>{{ notification.action.icon }}</mat-icon>
+              {{ notification.action.label }}
+            </button>
+          </div>
+        </div>
+
+        <!-- Ações da notificação -->
+        <div class="notification-actions">
+          <button
+            *ngIf="!notification.isRead"
+            mat-icon-button
+            class="action-button small"
+            (click)="markAsRead(notification.id)"
+            [matTooltip]="'Marcar como lida'">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            class="action-button small"
+            (click)="deleteNotification(notification.id)"
+            [matTooltip]="'Excluir notificação'">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Estado vazio -->
+      <div *ngIf="notifications().length === 0" class="empty-state">
+        <mat-icon class="empty-icon">notifications_off</mat-icon>
+        <p class="empty-text">Nenhuma notificação</p>
+        <span class="empty-subtext">Você está em dia com tudo!</span>
+      </div>
+    </div>
+
+    <!-- Footer do menu -->
+    <mat-divider></mat-divider>
+    <div class="notification-footer">
+      <button
+        mat-button
+        class="footer-button"
+        routerLink="/dashboard/notifications"
+        (click)="isMenuOpen.set(false)">
+        <mat-icon>list</mat-icon>
+        Ver todas as notificações
+      </button>
+    </div>
+  </mat-menu>
+</div>

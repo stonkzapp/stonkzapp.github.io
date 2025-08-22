@@ -1,0 +1,284 @@
+.toast-demo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: var(--background-color);
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+/* Header da Demonstração */
+.demo-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.demo-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.demo-header p {
+  font-size: 18px;
+  color: var(--text-secondary-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Seções de Demonstração */
+.demo-section {
+  margin-bottom: 24px;
+  background-color: var(--card-background-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.demo-section:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.demo-section mat-card-header {
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+}
+
+.demo-section mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.demo-section mat-card-title mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.demo-section mat-card-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  margin-top: 8px;
+  font-weight: 400;
+}
+
+.demo-section mat-card-content {
+  padding: 24px;
+}
+
+/* Grid de Botões */
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+/* Seções Especiais */
+.utility-section mat-card-header {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+.instructions-section mat-card-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.instructions-section .instructions {
+  background-color: var(--input-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+}
+
+.instructions-section .instructions p {
+  margin: 8px 0;
+  color: var(--text-color);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.instructions-section .instructions strong {
+  color: var(--primary-color);
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .toast-demo {
+    padding: 20px;
+  }
+
+  .button-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .toast-demo {
+    padding: 16px;
+  }
+
+  .demo-header h1 {
+    font-size: 28px;
+  }
+
+  .demo-header p {
+    font-size: 16px;
+  }
+
+  .demo-section mat-card-header {
+    padding: 20px 20px 12px 20px;
+  }
+
+  .demo-section mat-card-content {
+    padding: 20px;
+  }
+
+  .demo-section mat-card-title {
+    font-size: 18px;
+  }
+
+  .button-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .button-grid app-button {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .toast-demo {
+    padding: 12px;
+  }
+
+  .demo-header h1 {
+    font-size: 24px;
+  }
+
+  .demo-header p {
+    font-size: 14px;
+  }
+
+  .demo-section mat-card-header {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .demo-section mat-card-content {
+    padding: 16px;
+  }
+
+  .demo-section mat-card-title {
+    font-size: 16px;
+  }
+
+  .demo-section mat-card-title mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Animações */
+.demo-section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.demo-section:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.demo-section:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.demo-section:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.demo-section:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.demo-section:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.demo-section:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.demo-section:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.demo-section:nth-child(8) {
+  animation-delay: 0.8s;
+}
+.demo-section:nth-child(9) {
+  animation-delay: 0.9s;
+}
+.demo-section:nth-child(10) {
+  animation-delay: 1s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efeitos de Hover nos Botões */
+.button-grid app-button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-grid app-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para Tema Escuro */
+@media (prefers-color-scheme: dark) {
+  .demo-section {
+    background-color: var(--card-background-color);
+    border-color: var(--card-border-color);
+  }
+
+  .instructions-section .instructions {
+    background-color: var(--input-background-color);
+    border-color: var(--border-color);
+  }
+}
+
+/* Estilos para Tema Claro */
+@media (prefers-color-scheme: light) {
+  .demo-section {
+    background-color: var(--card-background-color);
+    border-color: var(--card-border-color);
+  }
+
+  .instructions-section .instructions {
+    background-color: var(--input-background-color);
+    border-color: var(--border-color);
+  }
+}

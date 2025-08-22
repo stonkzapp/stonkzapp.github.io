@@ -1,0 +1,1 @@
+var o={production:!1,apiUrl:"http://localhost:8080",mercadopago:{accessToken:"TEST-1234567890abcdef-1234-1234-1234-1234567890ab",publicKey:"TEST-12345678-1234-1234-1234-123456789012",sandbox:!0,webhookUrl:"http://localhost:8080/webhooks/mercadopago"}};export{o as a};

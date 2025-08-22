@@ -1,0 +1,19 @@
+<button
+  class="app-button"
+  [ngClass]="colorClass"
+  [class.loading]="loading"
+  [class.disabled]="disabled"
+  [disabled]="isDisabled"
+  [ngStyle]="{ width: width, height: height }">
+  <!-- Ícone à esquerda (se definido) -->
+  <mat-icon *ngIf="iconLeft">{{ iconLeft }}</mat-icon>
+
+  <!-- Label do botão (quando não estiver carregando) -->
+  <span *ngIf="!loading">{{ label }}</span>
+
+  <!-- Spinner de carregamento (se estiver carregando) -->
+  <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+
+  <!-- Ícone à direita (se definido) -->
+  <mat-icon *ngIf="iconRight">{{ iconRight }}</mat-icon>
+</button>

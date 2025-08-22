@@ -1,0 +1,122 @@
+<div class="home-container">
+  <!-- Header da Home -->
+  <div class="home-header">
+    <p class="home-subtitle">Visão geral do seu portfólio de investimentos</p>
+  </div>
+
+  <!-- KPI Cards no topo - Saldo Bruto, Valor Aplicado, Rentabilidade -->
+  <div class="kpi-grid">
+    <!-- Saldo Bruto -->
+    <stz-card class="p-6">
+      <div class="space-y-3">
+        <p class="text-sm text-gray-500 dark:text-gray-400">Saldo Bruto</p>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+          R$ 355.600,71
+        </p>
+        <p class="text-xs text-gray-600 dark:text-gray-400">
+          Maior classe de ativo: R$ 93.961,31 em Ações
+        </p>
+      </div>
+    </stz-card>
+
+    <!-- Valor Aplicado -->
+    <stz-card class="p-6">
+      <div class="space-y-3">
+        <p class="text-sm text-gray-500 dark:text-gray-400">Valor Aplicado</p>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">
+          R$ 355.600,71
+        </p>
+        <p class="text-xs text-gray-600 dark:text-gray-400">
+          Aportes nos últ. 12 meses:
+          <a href="#" class="text-blue-600 hover:text-blue-700 underline"
+            >Seja PRO para visualizar</a
+          >
+        </p>
+      </div>
+    </stz-card>
+
+    <!-- Rentabilidade -->
+    <stz-card class="p-6">
+      <div class="space-y-3">
+        <p class="text-sm text-gray-500 dark:text-gray-400">Rentabilidade</p>
+        <p class="text-2xl font-bold text-gray-900 dark:text-white">120,65%</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400">
+          Últimos 12 meses:
+          <a href="#" class="text-blue-600 hover:text-blue-700 underline"
+            >10,48%</a
+          >
+        </p>
+      </div>
+    </stz-card>
+  </div>
+
+  <!-- Seção Principal -->
+  <div class="main-section">
+    <!-- Gráfico principal grande -->
+    <div class="main-chart">
+      <div class="chart-header">
+        <h2 class="chart-title">Patrimônio</h2>
+        <!-- Seletor de período -->
+        <div class="period-selector">
+          <button class="period-btn">No ano</button>
+          <button class="period-btn active">12 meses</button>
+          <button class="period-btn">24 meses</button>
+          <button class="period-btn">Do início</button>
+        </div>
+      </div>
+
+      <!-- Gráfico -->
+      <stz-time-series
+        [series]="series"
+        [benchmark]="benchmark"
+        height="400px"></stz-time-series>
+    </div>
+
+    <!-- Sidebar Direita -->
+    <div class="right-sidebar">
+      <!-- Card de alocação com donut -->
+      <div class="allocation-card">
+        <div class="allocation-header">
+          <h3 class="allocation-title">Alocação da Carteira</h3>
+          <p class="allocation-subtitle">Distribuição por classe de ativos</p>
+        </div>
+        <div class="flex items-center justify-center">
+          <stz-allocation-donut
+            [data]="allocation"
+            height="300px"></stz-allocation-donut>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Gráficos Menores -->
+  <div class="charts-section">
+    <!-- Gráfico de barras mensais -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <h3 class="chart-card-title">Aportes Mensais</h3>
+      </div>
+      <stz-monthly-bars
+        [data]="monthlyAportes"
+        title="Aportes"></stz-monthly-bars>
+    </div>
+
+    <!-- Gráfico de barras de dividendos -->
+    <div class="chart-card">
+      <div class="chart-card-header">
+        <h3 class="chart-card-title">Dividendos Mensais</h3>
+      </div>
+      <stz-monthly-bars
+        [data]="monthlyProventos"
+        title="Dividendos"></stz-monthly-bars>
+    </div>
+  </div>
+
+  <!-- Timeline de atividades -->
+  <div class="timeline-section">
+    <div class="timeline-header">
+      <h2 class="timeline-title">Atividades Recentes</h2>
+    </div>
+    <stz-timeline [events]="events"></stz-timeline>
+  </div>
+</div>

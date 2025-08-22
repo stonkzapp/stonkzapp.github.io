@@ -1,0 +1,110 @@
+/* Container principal do dashboard */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar lateral */
+app-sidebar {
+  flex-shrink: 0;
+  width: 280px;
+  height: 100vh;
+  overflow: hidden;
+
+  @media (max-width: 1024px) {
+    width: 240px;
+  }
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+
+/* Conteúdo principal do dashboard */
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  // background-color: var(--color-background-secondary);
+}
+
+/* Header do dashboard */
+app-header {
+  flex-shrink: 0;
+  z-index: 1000;
+}
+
+/* Conteúdo principal (área de roteamento) */
+.dashboard-main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--space-6);
+
+  @media (max-width: 1024px) {
+    padding: var(--space-4);
+  }
+
+  @media (max-width: 768px) {
+    padding: var(--space-3);
+  }
+
+  @media (max-width: 480px) {
+    padding: var(--space-2);
+  }
+}
+
+/* Menu móvel no rodapé */
+app-mobile-menu {
+  display: none;
+
+  @media (max-width: 600px) {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+}
+
+/* Scrollbar personalizada para o conteúdo principal */
+.dashboard-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dashboard-main::-webkit-scrollbar-track {
+  background: var(--color-background-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+.dashboard-main::-webkit-scrollbar-thumb {
+  background: var(--color-border-secondary);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.dashboard-main::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-primary);
+}
+
+/* Suporte para modo de alta contraste */
+@media (prefers-contrast: high) {
+  .dashboard-container {
+    border: 1px solid var(--color-border-primary);
+  }
+
+  .dashboard-main::-webkit-scrollbar-thumb {
+    border: 1px solid var(--color-border-primary);
+  }
+}
+
+/* Suporte para modo de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-main {
+    scroll-behavior: auto;
+  }
+}

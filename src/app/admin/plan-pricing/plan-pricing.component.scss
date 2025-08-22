@@ -1,0 +1,511 @@
+.pricing-management {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: var(--background-color);
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+/* Header da Página */
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.page-header p {
+  font-size: 18px;
+  color: var(--text-secondary-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Barra de Ações */
+.actions-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+/* Seção de Carregamento */
+.loading-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  text-align: center;
+}
+
+.loading-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: var(--primary-color);
+  animation: spin 2s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-section p {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Seção de Planos */
+.plans-section {
+  margin-bottom: 32px;
+}
+
+.plans-section h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 24px 0;
+  transition: color 0.3s ease;
+}
+
+/* Card do Plano */
+.plan-card {
+  margin-bottom: 24px;
+  background-color: var(--card-background-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  border-color: var(--primary-color);
+}
+
+.plan-card mat-card-header {
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.plan-card mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.plan-card mat-card-title mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  color: var(--primary-color);
+}
+
+.plan-card mat-card-subtitle {
+  color: var(--text-secondary-color);
+  font-size: 16px;
+  margin-top: 8px;
+  transition: color 0.3s ease;
+}
+
+.plan-card mat-card-content {
+  padding: 24px;
+}
+
+/* Informações do Plano */
+.plan-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.plan-details {
+  flex: 1;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row .label {
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.detail-row .value {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.detail-row .value.active {
+  color: #4caf50;
+}
+
+.detail-row .value.inactive {
+  color: var(--danger-color);
+}
+
+.plan-actions {
+  flex-shrink: 0;
+}
+
+/* Formulário de Edição */
+.edit-form {
+  background-color: var(--input-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  transition: all 0.3s ease;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Seção de SKUs */
+.skus-section {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.skus-section h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.sku-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--input-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.sku-item:hover {
+  border-color: var(--primary-color);
+}
+
+.sku-info {
+  flex: 1;
+}
+
+.sku-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.sku-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.popular-badge {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sku-pricing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.current-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+.original-price {
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  text-decoration: line-through;
+  transition: color 0.3s ease;
+}
+
+.discount {
+  background-color: #4caf50;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sku-details {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.period {
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  transition: color 0.3s ease;
+}
+
+.savings {
+  font-size: 12px;
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.sku-actions {
+  flex-shrink: 0;
+}
+
+/* Formulário de Edição do SKU */
+.edit-sku-form {
+  background-color: var(--input-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px 0;
+  transition: all 0.3s ease;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+}
+
+/* Informações do Sistema */
+.system-info {
+  margin-top: 32px;
+}
+
+.system-info mat-card {
+  background-color: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.system-info mat-card-header {
+  padding: 20px 20px 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.system-info mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.system-info mat-card-title mat-icon {
+  color: var(--primary-color);
+}
+
+.system-info mat-card-content {
+  padding: 20px;
+}
+
+.info-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.info-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 12px 0;
+  transition: color 0.3s ease;
+}
+
+.info-item p {
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  margin: 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .pricing-management {
+    padding: 20px;
+  }
+
+  .plan-info {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .info-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-management {
+    padding: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 28px;
+  }
+
+  .page-header p {
+    font-size: 16px;
+  }
+
+  .plans-section h2 {
+    font-size: 20px;
+  }
+
+  .plan-card mat-card-header {
+    padding: 20px 20px 12px 20px;
+  }
+
+  .plan-card mat-card-content {
+    padding: 20px;
+  }
+
+  .plan-card mat-card-title {
+    font-size: 18px;
+  }
+
+  .sku-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .sku-actions {
+    align-self: flex-end;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-actions app-button {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-management {
+    padding: 12px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .page-header p {
+    font-size: 14px;
+  }
+
+  .plan-card mat-card-header {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .plan-card mat-card-content {
+    padding: 16px;
+  }
+
+  .edit-form,
+  .edit-sku-form {
+    padding: 16px;
+  }
+
+  .sku-pricing {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .sku-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

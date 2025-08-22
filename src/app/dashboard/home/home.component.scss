@@ -1,0 +1,298 @@
+/* Home Component - Estilos com Design Tokens */
+
+.home-container {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  transition: all var(--transition-normal);
+}
+
+/* Header da Home */
+.home-header {
+  margin-bottom: var(--space-8);
+}
+
+.home-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.home-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-weight: var(--font-weight-normal);
+}
+
+/* Grid de KPIs */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+/* Seção Principal */
+.main-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.main-chart {
+  background-color: var(--color-card-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  transition: all var(--transition-normal);
+}
+
+.main-chart:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.chart-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.period-selector {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.period-btn {
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border-primary);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.period-btn:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-primary);
+}
+
+.period-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+/* Sidebar Direita */
+.right-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.allocation-card {
+  background-color: var(--color-card-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  transition: all var(--transition-normal);
+}
+
+.allocation-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.allocation-header {
+  margin-bottom: var(--space-4);
+}
+
+.allocation-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.allocation-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin: 0;
+}
+
+.allocation-list {
+  margin-top: var(--space-4);
+}
+
+.allocation-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-tertiary);
+}
+
+.allocation-item:last-child {
+  border-bottom: none;
+}
+
+.allocation-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.allocation-color {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.allocation-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.allocation-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Seção de Gráficos Menores */
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.chart-card {
+  background-color: var(--color-card-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  transition: all var(--transition-normal);
+}
+
+.chart-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.chart-card-header {
+  margin-bottom: var(--space-4);
+}
+
+.chart-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Timeline */
+.timeline-section {
+  background-color: var(--color-card-background);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-6);
+  transition: all var(--transition-normal);
+}
+
+.timeline-section:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.timeline-header {
+  margin-bottom: var(--space-6);
+}
+
+.timeline-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .main-section {
+    grid-template-columns: 1fr;
+  }
+
+  .right-sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    padding: var(--space-4);
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .charts-section {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .main-chart,
+  .allocation-card,
+  .chart-card,
+  .timeline-section {
+    padding: var(--space-4);
+  }
+
+  .home-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .home-subtitle {
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: var(--space-3);
+  }
+
+  .main-chart,
+  .allocation-card,
+  .chart-card,
+  .timeline-section {
+    padding: var(--space-3);
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .period-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

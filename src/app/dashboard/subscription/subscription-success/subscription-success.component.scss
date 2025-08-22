@@ -1,0 +1,287 @@
+.success-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease;
+}
+
+.success-content {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Seção de Carregamento */
+.loading-section {
+  padding: 48px 24px;
+}
+
+.loading-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: var(--primary-color);
+  animation: spin 2s linear infinite;
+  margin-bottom: 24px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.loading-section p {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Seção de Sucesso */
+.success-section {
+  padding: 48px 24px;
+}
+
+.success-icon {
+  margin-bottom: 24px;
+}
+
+.success-icon mat-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: #4caf50;
+}
+
+.success-section h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.success-message {
+  font-size: 18px;
+  color: var(--text-secondary-color);
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+/* Detalhes da Assinatura */
+.subscription-details {
+  background-color: var(--card-background-color);
+  border: 1px solid var(--card-border-color);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px 0;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.subscription-details h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 20px 0;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-item .label {
+  font-size: 16px;
+  color: var(--text-secondary-color);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.detail-item .value {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.detail-item .value.success {
+  color: #4caf50;
+}
+
+/* Botões de Ação */
+.action-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.redirect-message {
+  margin-top: 24px;
+}
+
+.redirect-message p {
+  font-size: 14px;
+  color: var(--text-secondary-color);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+/* Seção de Erro */
+.error-section {
+  padding: 48px 24px;
+}
+
+.error-icon {
+  margin-bottom: 24px;
+}
+
+.error-icon mat-icon {
+  font-size: 80px;
+  width: 80px;
+  height: 80px;
+  color: var(--danger-color);
+}
+
+.error-section h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+  transition: color 0.3s ease;
+}
+
+.error-message {
+  font-size: 18px;
+  color: var(--text-secondary-color);
+  margin: 0 0 32px 0;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .success-container {
+    padding: 16px;
+  }
+
+  .success-content {
+    max-width: 100%;
+  }
+
+  .loading-section,
+  .success-section,
+  .error-section {
+    padding: 32px 16px;
+  }
+
+  .loading-icon,
+  .success-icon mat-icon,
+  .error-icon mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .loading-section h2,
+  .success-section h1,
+  .error-section h1 {
+    font-size: 24px;
+  }
+
+  .success-message,
+  .error-message {
+    font-size: 16px;
+  }
+
+  .subscription-details {
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .subscription-details h3 {
+    font-size: 18px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .action-buttons app-button {
+    width: 100% !important;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-container {
+    padding: 12px;
+  }
+
+  .loading-section,
+  .success-section,
+  .error-section {
+    padding: 24px 12px;
+  }
+
+  .loading-icon,
+  .success-icon mat-icon,
+  .error-icon mat-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .loading-section h2,
+  .success-section h1,
+  .error-section h1 {
+    font-size: 22px;
+  }
+
+  .success-message,
+  .error-message {
+    font-size: 15px;
+  }
+
+  .subscription-details {
+    padding: 16px;
+  }
+
+  .detail-item {
+    padding: 10px 0;
+  }
+
+  .detail-item .label,
+  .detail-item .value {
+    font-size: 14px;
+  }
+}
