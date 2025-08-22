@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:gh-pages": "ng build --configuration production --base-href=/stonkz-frontend/",
+    "postbuild:gh-pages": "node move-files.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
