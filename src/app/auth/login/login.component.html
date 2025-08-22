@@ -20,14 +20,14 @@
           label="E-mail"
           placeholder="Digite seu E-mail"
           type="text"
-          [control]="loginForm.controls.email">
+          [control]="$any(loginForm.get('email'))">
         </app-input>
 
         <app-input
           label="Senha"
           placeholder="Digite sua senha"
           type="password"
-          [control]="loginForm.controls.password">
+          [control]="$any(loginForm.get('password'))">
         </app-input>
 
         <div class="login-options">
@@ -44,11 +44,103 @@
           [iconRight]="null">
         </app-button>
       </form>
+
+      <!-- Seção de Login Alternativo -->
+      <div class="alternative-login">
+        <!-- Autenticação Biométrica -->
+        @if (biometricAvailable() && biometricEnrolled()) {
+        <div class="biometric-section">
+          <button
+            mat-raised-button
+            class="biometric-button"
+            [disabled]="isBiometricLoading()"
+            (click)="onBiometricLogin()"
+            [matTooltip]="'Usar ' + getBiometricText()">
+            @if (isBiometricLoading()) {
+            <mat-icon class="spinning">refresh</mat-icon>
+            } @else {
+            <mat-icon>{{ getBiometricIcon() }}</mat-icon>
+            }
+            <span>{{ getBiometricText() }}</span>
+          </button>
+        </div>
+        } @else if (biometricAvailable()) {
+        <div class="biometric-setup">
+          <button
+            mat-stroked-button
+            class="setup-biometric-button"
+            (click)="onSetupBiometric()"
+            [matTooltip]="'Configurar ' + getBiometricText()">
+            <mat-icon>{{ getBiometricIcon() }}</mat-icon>
+            <span>Configurar {{ getBiometricText() }}</span>
+          </button>
+        </div>
+        }
+
+        <!-- Divisor -->
+        <div class="divider">
+          <mat-divider></mat-divider>
+          <span class="divider-text">ou continue com</span>
+          <mat-divider></mat-divider>
+        </div>
+
+        <!-- Botões de Login Social -->
+        <div class="social-login-grid">
+          @for (provider of socialProviders; track provider.provider) {
+          <button
+            mat-raised-button
+            class="social-button"
+            [class]="'social-' + provider.provider"
+            [disabled]="isSocialProviderLoading(provider.provider)"
+            (click)="onSocialLogin(provider.provider)"
+            [matTooltip]="'Entrar com ' + provider.name">
+            @if (isSocialProviderLoading(provider.provider)) {
+            <mat-icon class="spinning">refresh</mat-icon>
+            } @else {
+            <mat-icon [style.color]="provider.color">{{
+              provider.icon
+            }}</mat-icon>
+            }
+            <span>{{ provider.name }}</span>
+          </button>
+          }
+        </div>
+
+        <!-- SSO Mobile -->
+        @if (isMobile) {
+        <div class="sso-section">
+          <button
+            mat-stroked-button
+            class="sso-button"
+            [disabled]="isSocialProviderLoading('sso')"
+            (click)="onSSOLogin()"
+            matTooltip="Single Sign-On do dispositivo">
+            @if (isSocialProviderLoading('sso')) {
+            <mat-icon class="spinning">refresh</mat-icon>
+            } @else {
+            <mat-icon>smartphone</mat-icon>
+            }
+            <span>SSO do Dispositivo</span>
+          </button>
+        </div>
+        }
+
+        <!-- Keycloak Enterprise -->
+        <!-- <div class="enterprise-section">
+          <button
+            mat-stroked-button
+            class="enterprise-button"
+            matTooltip="Para empresas com Keycloak">
+            <mat-icon>business</mat-icon>
+            <span>Login Empresarial</span>
+          </button>
+        </div> -->
+      </div>
     </section>
   </div>
 </div>
 
-<!-- Adicionar após o formulário de login, antes do footer -->
+<!-- Adicionar após o formulário de login, antes do footer
 <div class="mock-credentials-info">
   <div class="mock-badge">DEV</div>
   <div class="mock-info">
@@ -63,4 +155,4 @@
       simulados.</small
     >
   </div>
-</div>
+</div> -->

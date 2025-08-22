@@ -1,0 +1,73 @@
+<div class="wallet-selector-menu">
+  <!-- Cabeçalho do Menu -->
+  <div class="menu-header">
+    <h3>Suas Carteiras</h3>
+    <span class="wallet-count"
+      >{{ wallets.length }} carteira{{ wallets.length !== 1 ? 's' : '' }}</span
+    >
+  </div>
+
+  <!-- Lista de Carteiras -->
+  <div class="wallet-items">
+    <div
+      *ngFor="let wallet of wallets"
+      class="wallet-item"
+      [class.active]="isActiveWallet(wallet)"
+      (click)="switchWallet(wallet)">
+      <div
+        class="wallet-item-color"
+        [style.background-color]="getWalletColor(wallet)"></div>
+      <div class="wallet-item-info">
+        <div class="wallet-item-name">{{ wallet.name }}</div>
+        <div class="wallet-item-status">
+          <span *ngIf="isActiveWallet(wallet)" class="active-badge">Ativa</span>
+          <span *ngIf="wallet.isDefault" class="default-badge">Padrão</span>
+        </div>
+      </div>
+      <mat-icon *ngIf="isActiveWallet(wallet)" class="check-icon"
+        >check</mat-icon
+      >
+    </div>
+  </div>
+
+  <!-- Ações -->
+  <div class="wallet-actions">
+    <button
+      *ngIf="canCreateWallet"
+      mat-button
+      class="action-button create-wallet"
+      (click)="createWallet()">
+      <mat-icon>add</mat-icon>
+      Nova Carteira
+    </button>
+
+    <button
+      *ngIf="canHaveMultipleWallets"
+      mat-button
+      class="action-button manage-wallets"
+      (click)="manageWallets()">
+      <mat-icon>settings</mat-icon>
+      Gerenciar Carteiras
+    </button>
+
+    <!-- Upgrade para PRO -->
+    <div *ngIf="shouldShowUpgrade()" class="upgrade-section">
+      <div class="upgrade-info">
+        <mat-icon class="upgrade-icon">star</mat-icon>
+        <div class="upgrade-text">
+          <div class="upgrade-title">Upgrade para PRO</div>
+          <div class="upgrade-description">
+            Crie múltiplas carteiras e organize seus investimentos
+          </div>
+        </div>
+      </div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="upgrade-button"
+        (click)="upgradeToPro()">
+        Upgrade
+      </button>
+    </div>
+  </div>
+</div>

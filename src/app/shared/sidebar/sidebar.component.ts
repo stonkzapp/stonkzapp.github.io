@@ -204,4 +204,9 @@ export class SidebarComponent {
     // Redirecionar para tela de planos
     this.router.navigate(['/dashboard/profile/subscription']);
   }
+
+  goToHome(): void {
+    // Voltar para a home do dashboard
+    this.router.navigate(['/dashboard/home']);
+  }
 }

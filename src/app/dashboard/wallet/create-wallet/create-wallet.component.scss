@@ -1,0 +1,189 @@
+.create-wallet-container {
+  padding: 0;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  border-bottom: 1px solid var(--color-border-primary);
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+
+    mat-icon {
+      color: var(--color-primary);
+    }
+  }
+}
+
+.close-button {
+  color: var(--color-text-secondary);
+
+  &:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+.wallet-form {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Seleção de Cores */
+.color-selection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.color-label {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: var(--space-3);
+  max-width: 400px;
+}
+
+.color-option {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal);
+  border: 2px solid transparent;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+  }
+
+  &.selected {
+    border-color: var(--color-text-primary);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .check-icon {
+    color: var(--color-white);
+    font-size: 20px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  }
+}
+
+/* Ações do Modal */
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6) var(--space-6);
+  border-top: 1px solid var(--color-border-primary);
+  margin: 0;
+}
+
+.cancel-button {
+  color: var(--color-text-secondary);
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 140px;
+
+  .loading-icon {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .dialog-header {
+    padding: var(--space-4);
+  }
+
+  .wallet-form {
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .dialog-actions {
+    padding: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .create-button,
+  .cancel-button {
+    width: 100%;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
+    gap: var(--space-2);
+  }
+
+  .color-option {
+    width: 35px;
+    height: 35px;
+  }
+
+  .color-label {
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Para dispositivos muito pequenos */
+@media (max-width: 400px) {
+  .create-wallet-container {
+    margin: var(--space-2);
+  }
+
+  .dialog-header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  }
+
+  .color-option {
+    width: 30px;
+    height: 30px;
+  }
+
+  .check-icon {
+    font-size: 16px;
+  }
+}

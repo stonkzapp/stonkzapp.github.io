@@ -21,7 +21,12 @@ import {
 } from '../../core/services/mock-auth.service';
 import { StorageService } from '../../core/services/storage.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { BiometricAuthService } from '../../core/services/biometric-auth.service';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { WalletSelectorComponent } from '../wallet-selector';
+import { BiometricCapabilities } from '../../core/models/models';
+import { BiometricSettingsModalComponent } from '../biometric-settings-modal/biometric-settings-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -34,6 +39,7 @@ import { NotificationsComponent } from '../notifications/notifications.component
     MatBadgeModule,
     MatDividerModule,
     NotificationsComponent,
+    WalletSelectorComponent,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -47,13 +53,20 @@ export class HeaderComponent implements OnInit {
   currentUser: MockUser | null = null;
   isMockMode = false;
 
+  // Propriedades de biometria
+  biometricCapabilities: BiometricCapabilities | null = null;
+  biometricAvailable = signal(false);
+  biometricEnrolled = signal(false);
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private tokenService: TokenService,
     private mockAuthService: MockAuthService,
     private storageService: StorageService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private biometricAuthService: BiometricAuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +79,9 @@ export class HeaderComponent implements OnInit {
         this.currentUser = user;
       });
     }
+
+    // Verificar capacidades biométricas
+    this.checkBiometricCapabilities();
   }
 
   isDesktop(): boolean {
@@ -140,5 +156,60 @@ export class HeaderComponent implements OnInit {
 
   getUserEmail(): string {
     return this.currentUser?.email || 'usuario@exemplo.com';
+  }
+
+  goToHome(): void {
+    // Voltar para a home do dashboard
+    this.router.navigate(['/dashboard/home']);
+  }
+
+  // Verificar capacidades biométricas
+  private checkBiometricCapabilities(): void {
+    this.biometricAuthService.getBiometricCapabilities().subscribe({
+      next: capabilities => {
+        this.biometricCapabilities = capabilities;
+        this.biometricAvailable.set(capabilities.isAvailable);
+
+        // Verificar se o usuário já está registrado
+        this.biometricAuthService.isBiometricEnrolled().subscribe(enrolled => {
+          this.biometricEnrolled.set(enrolled && capabilities.isAvailable);
+        });
+      },
+      error: error => {
+        console.warn('Erro ao verificar capacidades biométricas:', error);
+        this.biometricAvailable.set(false);
+      },
+    });
+  }
+
+  // Abrir configurações de biometria
+  onBiometricSettingsClick(): void {
+    if (!this.biometricAvailable()) {
+      this.notificationService.showWarning(
+        'Autenticação biométrica não disponível neste dispositivo'
+      );
+      return;
+    }
+
+    // Abrir modal de configuração de biometria
+    this.openBiometricSettingsModal();
+  }
+
+  // Abrir modal de configuração de biometria
+  private openBiometricSettingsModal(): void {
+    const dialogRef = this.dialog.open(BiometricSettingsModalComponent, {
+      width: '600px',
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      disableClose: false,
+      panelClass: 'biometric-settings-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Atualizar status biométrico se necessário
+        this.checkBiometricCapabilities();
+      }
+    });
   }
 }

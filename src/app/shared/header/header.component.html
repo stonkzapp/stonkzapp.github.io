@@ -15,7 +15,12 @@
       @if (showBackButton || isDesktop()) {
       <h1 class="page-title">{{ pageTitle }}</h1>
       } @else {
-      <img src="logo.svg" alt="Stonkz" class="mobile-logo" />
+      <img
+        src="logo.svg"
+        alt="Stonkz"
+        class="mobile-logo"
+        (click)="goToHome()"
+        style="cursor: pointer" />
       }
     </div>
   </div>
@@ -40,6 +45,20 @@
       aria-label="Alternar modo texto">
       <mat-icon>visibility</mat-icon>
     </button>
+
+    <!-- Seletor de Carteiras -->
+    <button
+      mat-icon-button
+      class="action-button"
+      [matMenuTriggerFor]="walletMenu"
+      aria-label="Selecionar Carteira">
+      <mat-icon>account_balance_wallet</mat-icon>
+    </button>
+
+    <!-- Menu de Carteiras -->
+    <mat-menu #walletMenu="matMenu" class="wallet-menu">
+      <app-wallet-selector></app-wallet-selector>
+    </mat-menu>
 
     <!-- Componente de notificações -->
     <app-notifications></app-notifications>
@@ -70,6 +89,24 @@
       <button mat-menu-item (click)="onProfileClick()">
         <mat-icon>person</mat-icon>
         <span>Meu Perfil</span>
+      </button>
+
+      <!-- Configuração de Biometria -->
+      <button
+        mat-menu-item
+        (click)="onBiometricSettingsClick()"
+        class="biometric-item">
+        <mat-icon>fingerprint</mat-icon>
+        <span>Configurar Biometria</span>
+        @if (biometricAvailable()) {
+        <div class="biometric-status">
+          @if (biometricEnrolled()) {
+          <span class="status-badge enrolled">✓ Configurado</span>
+          } @else {
+          <span class="status-badge not-enrolled">⚙️ Configurar</span>
+          }
+        </div>
+        }
       </button>
 
       <mat-divider></mat-divider>

@@ -56,6 +56,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
 }
 
 .logo {
