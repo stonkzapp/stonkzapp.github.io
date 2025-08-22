@@ -1,59 +1,82 @@
-# StonkzFrontend
+# Stonkz Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+Aplicação frontend para o sistema Stonkz, desenvolvida em Angular 19.
 
-## Development server
+## 🚀 Deploy no GitHub Pages
 
-To start a local development server, run:
+### Configuração Automática
 
-```bash
-ng serve
-```
+O projeto está configurado para fazer deploy automático no GitHub Pages através do GitHub Actions.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+**Para ativar:**
 
-## Code scaffolding
+1. **Habilitar GitHub Pages:**
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+   - Vá para `Settings` > `Pages` no seu repositório
+   - Em `Source`, selecione `GitHub Actions`
 
-```bash
-ng generate component component-name
-```
+2. **Configurar branch:**
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+   - Certifique-se de que a branch principal é `main`
+   - O workflow será executado automaticamente a cada push
 
-```bash
-ng generate --help
-```
+3. **Primeiro deploy:**
+   - Faça um push para a branch `main`
+   - O GitHub Actions irá construir e fazer deploy automaticamente
 
-## Building
+### Configuração Manual
 
-To build the project run:
+Se preferir fazer deploy manual:
 
 ```bash
-ng build
+# Instalar dependências
+npm install
+
+# Build para produção
+npm run build:gh-pages
+
+# Os arquivos serão gerados na pasta `docs/`
+# Faça commit e push da pasta `docs/`
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Estrutura de Arquivos
 
-## Running unit tests
+- `outputPath`: `docs/` (configurado no `angular.json`)
+- `baseHref`: `/stonkz-frontend/` (ajuste para o nome do seu repositório)
+- Workflow: `.github/workflows/deploy.yml`
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🛠️ Desenvolvimento Local
 
 ```bash
-ng test
+# Instalar dependências
+npm install
+
+# Servidor de desenvolvimento
+npm start
+
+# Build para produção
+npm run build
+
+# Testes
+npm test
 ```
 
-## Running end-to-end tests
+## 📱 Funcionalidades
 
-For end-to-end (e2e) testing, run:
+- Sistema de carteiras múltiplas
+- Autenticação com múltiplos provedores
+- Painel administrativo
+- Sistema de assinaturas
+- Interface responsiva
 
-```bash
-ng e2e
-```
+## 🔧 Tecnologias
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Angular 19
+- Angular Material
+- RxJS
+- SCSS
+- TypeScript
 
-## Additional Resources
+## 📄 Licença
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este projeto é privado e proprietário.

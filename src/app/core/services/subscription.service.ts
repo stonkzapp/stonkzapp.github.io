@@ -17,6 +17,14 @@ import {
   SKUPricing,
 } from './plan-pricing.service';
 import { switchMap, tap, map } from 'rxjs/operators';
+import {
+  MOCK_SUBSCRIPTION_PLANS,
+  MOCK_SUBSCRIPTION_SKUS,
+  MOCK_USER_SUBSCRIPTION,
+  MOCK_SUBSCRIPTION_FEATURES,
+  getMockSubscriptionByUserId,
+  isProUser,
+} from '../config/mock-data';
 
 @Injectable({
   providedIn: 'root',
@@ -31,24 +39,13 @@ export class SubscriptionService extends BaseService {
     private planPricingService: PlanPricingService
   ) {
     super();
+    // Inicializar com mock de usuário PRO
+    this.currentSubscriptionSubject.next(MOCK_USER_SUBSCRIPTION);
   }
 
   // Obter todos os planos disponíveis
   getAvailablePlans(): Observable<SubscriptionPlan[]> {
-    return this.planPricingService.getPlans().pipe(
-      map(plans =>
-        plans.map(plan => ({
-          id: plan.id,
-          name: plan.name,
-          type: plan.type,
-          description: plan.description,
-          features: plan.features,
-          isActive: plan.isActive,
-          createdAt: plan.createdAt,
-          updatedAt: plan.updatedAt,
-        }))
-      )
-    );
+    return of(MOCK_SUBSCRIPTION_PLANS);
   }
 
   // Obter SKUs disponíveis para um plano
@@ -57,62 +54,19 @@ export class SubscriptionService extends BaseService {
       return of([]); // Plano gratuito não tem SKUs
     }
 
-    return this.planPricingService.getSKUsByPlan(planId).pipe(
-      map(skus =>
-        skus.map(sku => ({
-          id: sku.id,
-          planId: sku.planId,
-          name: sku.name,
-          period: sku.period,
-          price: sku.price,
-          originalPrice: sku.originalPrice,
-          currency: sku.currency,
-          isPopular: sku.isPopular,
-          discountPercentage: sku.discountPercentage,
-          features: sku.features,
-          isActive: sku.isActive,
-          createdAt: sku.createdAt,
-          updatedAt: sku.updatedAt,
-        }))
-      )
-    );
+    return of(MOCK_SUBSCRIPTION_SKUS.filter(sku => sku.planId === planId));
   }
 
   // Obter todas as funcionalidades disponíveis
   getAvailableFeatures(): Observable<SubscriptionFeature[]> {
-    return this.planPricingService.getAvailableFeatures().pipe(
-      map(features =>
-        features.map(feature => ({
-          id: feature.id,
-          name: feature.name,
-          description: feature.description,
-          icon: feature.icon,
-          isAvailable: feature.isAvailable,
-          planType: feature.planType,
-        }))
-      )
-    );
+    return of(MOCK_SUBSCRIPTION_FEATURES);
   }
 
   // Obter assinatura atual do usuário
   getCurrentSubscription(userId: string): Observable<UserSubscription | null> {
-    // Simular assinatura atual do usuário
-    const mockCurrentSubscription: UserSubscription = {
-      id: 'sub_123',
-      userId: userId,
-      planId: 'pro',
-      skuId: 'pro-semiannual',
-      status: 'active',
-      startDate: new Date('2024-01-01'),
-      endDate: new Date('2024-07-01'),
-      nextPaymentDate: new Date('2024-07-01'),
-      autoRenew: true,
-      createdAt: new Date('2024-01-01'),
-      updatedAt: new Date('2024-01-01'),
-    };
-
-    this.currentSubscriptionSubject.next(mockCurrentSubscription);
-    return of(mockCurrentSubscription);
+    const mockSubscription = getMockSubscriptionByUserId(userId);
+    this.currentSubscriptionSubject.next(mockSubscription);
+    return of(mockSubscription);
   }
 
   // Criar nova assinatura com Mercado Pago
@@ -306,5 +260,29 @@ export class SubscriptionService extends BaseService {
 
   get skus$() {
     return this.planPricingService.skus$;
+  }
+
+  // Verificar se o usuário tem plano PRO
+  isProUser(): boolean {
+    // Usar mock para usuário PRO
+    return isProUser('user-123');
+  }
+
+  // Verificar se o usuário tem plano específico
+  hasPlan(userId: string, planType: 'free' | 'pro'): Observable<boolean> {
+    return new Observable(observer => {
+      this.getCurrentSubscription(userId).subscribe(subscription => {
+        if (!subscription || subscription.status !== 'active') {
+          observer.next(planType === 'free');
+          observer.complete();
+          return;
+        }
+
+        // Verificar se o plano atual corresponde ao tipo solicitado
+        const hasAccess = subscription.planId === planType;
+        observer.next(hasAccess);
+        observer.complete();
+      });
+    });
   }
 }

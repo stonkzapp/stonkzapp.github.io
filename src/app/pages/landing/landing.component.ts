@@ -98,6 +98,111 @@ export class LandingComponent {
     },
   ];
 
+  // Empresas parceiras que fornecem dados públicos
+  partners = [
+    {
+      name: 'B3',
+      logo: 'partners/b3.png',
+      description: 'Bolsa brasileira de valores',
+      alt: 'Logo B3 - Bolsa brasileira de valores',
+    },
+    {
+      name: 'CVM',
+      logo: 'partners/cvm.png',
+      description: 'Comissão de Valores Mobiliários',
+      alt: 'Logo CVM - Comissão de Valores Mobiliários',
+    },
+    {
+      name: 'Banco Central',
+      logo: 'partners/banco-central.png',
+      description: 'Banco Central do Brasil',
+      alt: 'Logo Banco Central do Brasil',
+    },
+    {
+      name: 'Tesouro Nacional',
+      logo: 'partners/tesouro-nacional.png',
+      description: 'Tesouro Nacional',
+      alt: 'Logo Tesouro Nacional',
+    },
+  ];
+
+  // Projeções e possibilidades para o usuário
+  projections = [
+    {
+      icon: 'trending_up',
+      title: 'Crescimento do Patrimônio',
+      description: 'Acompanhe a evolução do seu patrimônio ao longo do tempo',
+      highlight: 'CRESCIMENTO',
+      gradient: 'gradient-success',
+    },
+    {
+      icon: 'analytics',
+      title: 'Análise de Performance',
+      description: 'Compare seus resultados com benchmarks do mercado',
+      highlight: 'PERFORMANCE',
+      gradient: 'gradient-primary',
+    },
+    {
+      icon: 'account_balance_wallet',
+      title: 'Gestão Inteligente',
+      description: 'Organize suas carteiras por estratégia e objetivo',
+      highlight: 'GESTÃO',
+      gradient: 'gradient-accent',
+    },
+    {
+      icon: 'insights',
+      title: 'Insights Valiosos',
+      description:
+        'Receba análises e sugestões para otimizar seus investimentos',
+      highlight: 'INSIGHTS',
+      gradient: 'gradient-secondary',
+    },
+  ];
+
+  // Funcionalidades avançadas
+  advancedFeatures = [
+    {
+      icon: 'dashboard',
+      title: 'Carteiras Múltiplas',
+      description:
+        'Gerencie diferentes estratégias de investimento em carteiras separadas',
+      highlight: 'MULTIPLAS',
+      gradient: 'gradient-primary',
+    },
+    {
+      icon: 'analytics',
+      title: 'Análise de Risco',
+      description: 'Métricas avançadas de risco e volatilidade para cada ativo',
+      highlight: 'RISCO',
+      gradient: 'gradient-warning',
+    },
+    {
+      icon: 'trending_up',
+      title: 'Performance Tracking',
+      description: 'Acompanhe o desempenho histórico com gráficos interativos',
+      highlight: 'PERFORMANCE',
+      gradient: 'gradient-success',
+    },
+    {
+      icon: 'notifications',
+      title: 'Alertas Inteligentes',
+      description:
+        'Configure alertas personalizados para movimentações importantes',
+      highlight: 'ALERTAS',
+      gradient: 'gradient-accent',
+    },
+  ];
+
+  // Dados de exemplo para gráficos
+  portfolioData = [
+    { month: 'Jan', value: 10000, growth: 0, height: 60 },
+    { month: 'Fev', value: 10500, growth: 5, height: 70 },
+    { month: 'Mar', value: 11200, growth: 12, height: 80 },
+    { month: 'Abr', value: 11800, growth: 18, height: 90 },
+    { month: 'Mai', value: 12500, growth: 25, height: 100 },
+    { month: 'Jun', value: 13200, growth: 32, height: 110 },
+  ];
+
   // Métodos de navegação
   goToLogin(): void {
     this.router.navigate(['/auth/login']);

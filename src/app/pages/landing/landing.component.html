@@ -79,6 +79,25 @@
       </p>
     </div>
 
+    <!-- Carrossel de Empresas Parceiras -->
+    <div class="partners-carousel">
+      <div class="partners-container">
+        <div class="partners-track">
+          <div class="partner-item" *ngFor="let partner of partners">
+            <div class="partner-logo">
+              <img [src]="partner.logo" [alt]="partner.alt" />
+            </div>
+          </div>
+          <!-- Duplicar itens para criar efeito de loop infinito -->
+          <div class="partner-item" *ngFor="let partner of partners">
+            <div class="partner-logo">
+              <img [src]="partner.logo" [alt]="partner.alt" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="features-grid">
       <div class="feature-card" *ngFor="let feature of features">
         <div class="feature-icon">
@@ -91,6 +110,129 @@
           </div>
         </div>
         <p class="feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projeções e Possibilidades -->
+<section class="projections-section">
+  <div class="projections-container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Transforme seus <span class="gradient-text">Investimentos</span>
+      </h2>
+      <p class="section-description">
+        Descubra como a Stonkz pode ajudar você a alcançar seus objetivos
+        financeiros
+      </p>
+    </div>
+
+    <div class="projections-grid">
+      <div class="projection-card" *ngFor="let projection of projections">
+        <div class="projection-icon" [class]="projection.gradient">
+          <mat-icon>{{ projection.icon }}</mat-icon>
+        </div>
+        <div class="projection-content">
+          <div class="projection-highlight" [class]="projection.gradient">
+            {{ projection.highlight }}
+          </div>
+          <h3 class="projection-title">{{ projection.title }}</h3>
+          <p class="projection-description">{{ projection.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Funcionalidades Avançadas -->
+<section class="advanced-features-section">
+  <div class="advanced-features-container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Funcionalidades <span class="gradient-text">Avançadas</span>
+      </h2>
+      <p class="section-description">
+        Ferramentas profissionais que transformam sua experiência de
+        investimento
+      </p>
+    </div>
+
+    <div class="advanced-features-grid">
+      <div
+        class="advanced-feature-card"
+        *ngFor="let feature of advancedFeatures">
+        <div class="feature-highlight" [class]="feature.gradient">
+          {{ feature.highlight }}
+        </div>
+        <div class="feature-icon-large">
+          <mat-icon>{{ feature.icon }}</mat-icon>
+        </div>
+        <h3 class="advanced-feature-title">{{ feature.title }}</h3>
+        <p class="advanced-feature-description">{{ feature.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Demonstração de Gráficos -->
+<section class="demo-section">
+  <div class="demo-container">
+    <div class="demo-content">
+      <div class="demo-text">
+        <h2 class="demo-title">
+          Visualize seus <span class="gradient-text">Investimentos</span>
+        </h2>
+        <p class="demo-description">
+          Gráficos interativos e relatórios detalhados para acompanhar o
+          desempenho da sua carteira em tempo real.
+        </p>
+        <ul class="demo-features-list">
+          <li>
+            <mat-icon class="check-icon">check_circle</mat-icon>
+            Carteiras múltiplas com separação por estratégia
+          </li>
+          <li>
+            <mat-icon class="check-icon">check_circle</mat-icon>
+            Análise de risco e volatilidade
+          </li>
+          <li>
+            <mat-icon class="check-icon">check_circle</mat-icon>
+            Relatórios mensais e trimestrais
+          </li>
+          <li>
+            <mat-icon class="check-icon">check_circle</mat-icon>
+            Comparação com benchmarks do mercado
+          </li>
+        </ul>
+      </div>
+
+      <div class="demo-visual">
+        <div class="chart-container">
+          <div class="chart-header">
+            <h4>Performance da Carteira</h4>
+            <div class="chart-period">Últimos 6 meses</div>
+          </div>
+          <div class="chart-content">
+            <div class="chart-bars">
+              <div
+                class="chart-bar"
+                *ngFor="let data of portfolioData"
+                [style.height]="data.height + 'px'">
+                <div class="bar-value">
+                  {{ data.value | currency : 'BRL' : 'symbol' : '1.0-0' }}
+                </div>
+                <div class="bar-month">{{ data.month }}</div>
+              </div>
+            </div>
+            <div class="chart-growth">
+              <div class="growth-indicator positive">
+                <mat-icon>trending_up</mat-icon>
+                +32% no período
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

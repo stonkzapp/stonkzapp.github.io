@@ -1,0 +1,371 @@
+/* ===== MODAL DE CONFIGURAÇÕES DE BIOMETRIA ===== */
+
+.biometric-settings-modal {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 80vh;
+}
+
+/* Header do Modal */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border-primary);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+
+    mat-icon {
+      color: var(--color-primary);
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .close-button {
+    color: var(--color-text-secondary);
+
+    &:hover {
+      color: var(--color-text-primary);
+      background: var(--color-surface-hover);
+    }
+  }
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+  flex: 1;
+  padding: var(--space-4);
+  overflow-y: auto;
+  background: var(--color-surface);
+}
+
+/* Seção de Carregamento */
+.loading-section {
+  text-align: center;
+  padding: var(--space-6) 0;
+
+  p {
+    margin-top: var(--space-3);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+  }
+}
+
+/* Seção de Biometria Não Disponível */
+.not-available-section {
+  text-align: center;
+  padding: var(--space-6) 0;
+
+  .warning-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+    color: var(--color-warning);
+    margin-bottom: var(--space-3);
+  }
+
+  h3 {
+    margin: 0 0 var(--space-3) 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-4);
+    line-height: 1.5;
+  }
+
+  .device-info {
+    mat-chip-set {
+      justify-content: center;
+    }
+  }
+}
+
+/* Seção de Status */
+.status-section {
+  margin-bottom: var(--space-6);
+
+  h3 {
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .status-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    transition: all var(--transition-fast);
+
+    &:hover {
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    mat-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+      color: var(--color-text-tertiary);
+
+      &.available {
+        color: var(--color-success);
+      }
+    }
+
+    span {
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+      font-size: var(--font-size-sm);
+    }
+
+    mat-chip {
+      font-size: var(--font-size-xs);
+      height: 24px;
+      min-width: 80px;
+
+      &.available {
+        background: var(--gradient-success);
+        color: var(--color-white);
+      }
+
+      &.not-available {
+        background: var(--color-surface-hover);
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+}
+
+/* Seção de Configuração */
+.configuration-section {
+  margin-bottom: var(--space-6);
+
+  h3 {
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .enrolled-status,
+  .not-enrolled-status {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .enrolled-status {
+    border-color: var(--color-success);
+    background: linear-gradient(
+      135deg,
+      rgba(34, 197, 94, 0.05),
+      rgba(34, 197, 94, 0.1)
+    );
+  }
+
+  .not-enrolled-status {
+    border-color: var(--color-warning);
+    background: linear-gradient(
+      135deg,
+      rgba(245, 158, 11, 0.05),
+      rgba(245, 158, 11, 0.1)
+    );
+  }
+
+  .success-icon {
+    color: var(--color-success);
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .info-icon {
+    color: var(--color-warning);
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
+
+  .enrolled-info,
+  .not-enrolled-info {
+    flex: 1;
+
+    h4 {
+      margin: 0 0 var(--space-2) 0;
+      color: var(--color-text-primary);
+      font-size: var(--font-size-md);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      font-size: var(--font-size-sm);
+    }
+  }
+}
+
+/* Seção de Informações do Dispositivo */
+.device-section {
+  h3 {
+    margin: 0 0 var(--space-4) 0;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .device-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-3);
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    border: 1px solid var(--color-border-primary);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+
+    .label {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: var(--font-weight-medium);
+    }
+
+    .value {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-medium);
+
+      &.device-id {
+        font-family: 'Courier New', monospace;
+        background: var(--color-surface-hover);
+        padding: var(--space-1) var(--space-2);
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-xs);
+      }
+    }
+  }
+}
+
+/* Footer do Modal */
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-border-primary);
+  background: var(--color-surface);
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+
+  .cancel-button {
+    color: var(--color-text-secondary);
+
+    &:hover {
+      color: var(--color-text-primary);
+      background: var(--color-surface-hover);
+    }
+  }
+
+  button[color='primary'] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-header {
+    padding: var(--space-3);
+
+    h2 {
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .modal-content {
+    padding: var(--space-3);
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .device-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .enrolled-status,
+  .not-enrolled-status {
+    flex-direction: column;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: stretch;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .biometric-settings-modal {
+    max-height: 90vh;
+  }
+
+  .status-item {
+    padding: var(--space-2);
+  }
+
+  .enrolled-status,
+  .not-enrolled-status {
+    padding: var(--space-3);
+  }
+}

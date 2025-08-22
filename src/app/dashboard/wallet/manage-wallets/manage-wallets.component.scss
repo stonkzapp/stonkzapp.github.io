@@ -1,0 +1,434 @@
+.manage-wallets-container {
+  padding: var(--space-6);
+  max-width: 1200px;
+}
+
+/* Header */
+.page-header {
+  margin-bottom: var(--space-8);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-6);
+}
+
+.title-section {
+  h1 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-2) 0;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+
+    mat-icon {
+      color: var(--color-primary);
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+}
+
+.create-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+/* Status Info */
+.status-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+
+  &:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.info-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+  color: var(--color-text-secondary);
+
+  &.active {
+    color: var(--color-warning);
+  }
+}
+
+.info-content {
+  .info-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-1);
+  }
+
+  .info-value {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+}
+
+/* Grid de Carteiras */
+.wallets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-6);
+}
+
+/* Card da Carteira */
+.wallet-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  &.active {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+  }
+
+  &.default {
+    border-color: var(--color-warning);
+  }
+}
+
+/* Header da Carteira */
+.wallet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+
+.wallet-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex: 1;
+  min-width: 0;
+}
+
+.wallet-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.wallet-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.wallet-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wallet-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wallet-badges {
+  margin-right: var(--space-2);
+}
+
+.active-chip {
+  background: var(--color-primary) !important;
+  color: var(--color-white) !important;
+}
+
+.default-chip {
+  background: var(--color-warning) !important;
+  color: var(--color-white) !important;
+}
+
+.menu-trigger {
+  color: var(--color-text-secondary);
+
+  &:hover {
+    color: var(--color-text-primary);
+  }
+}
+
+/* Estatísticas */
+.wallet-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-lg);
+}
+
+.stat-item {
+  text-align: center;
+
+  .stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-1);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+
+    &.positive-return {
+      color: var(--color-success);
+    }
+
+    &.negative-return {
+      color: var(--color-error);
+    }
+
+    &.neutral-return {
+      color: var(--color-text-secondary);
+    }
+  }
+}
+
+/* Ações da Carteira */
+.wallet-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.switch-button,
+.edit-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.switch-button {
+  &:disabled {
+    background: var(--color-success);
+    color: var(--color-white);
+  }
+}
+
+/* Card de Criar Carteira */
+.create-card {
+  border: 2px dashed var(--color-border-primary);
+  background: var(--color-surface-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+  }
+}
+
+.create-content {
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.create-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.create-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.create-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+/* Card de Upgrade */
+.upgrade-card {
+  background: var(--gradient-primary);
+  border: none;
+  color: var(--color-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+.upgrade-content {
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.upgrade-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: var(--color-warning-light);
+  margin-bottom: var(--space-4);
+}
+
+.upgrade-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.upgrade-description {
+  font-size: var(--font-size-sm);
+  opacity: 0.9;
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+
+.upgrade-button {
+  background: var(--color-white) !important;
+  color: var(--color-primary) !important;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Menu de Ações */
+.delete-action {
+  color: var(--color-error);
+
+  mat-icon {
+    color: var(--color-error);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .manage-wallets-container {
+    padding: var(--space-4);
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .title-section h1 {
+    font-size: var(--font-size-xl);
+
+    mat-icon {
+      font-size: 28px;
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .status-info {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .wallets-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .wallet-card {
+    padding: var(--space-4);
+  }
+
+  .wallet-stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .wallet-actions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .wallet-header {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .wallet-badges {
+    order: 3;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .stat-item .stat-value {
+    font-size: var(--font-size-sm);
+  }
+}

@@ -1,5 +1,9 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+import {
+  AdminAuthGuard,
+  AdminLoginGuard,
+} from './core/guards/admin-auth.guard';
 
 export const routes: Routes = [
   {
@@ -72,6 +76,22 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'wallet/manage',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import(
+            './dashboard/wallet/manage-wallets/manage-wallets.component'
+          ).then(m => m.ManageWalletsComponent),
+      },
+      {
+        path: 'wallet/create',
+        canActivate: [AuthGuard],
+        loadComponent: () =>
+          import(
+            './dashboard/wallet/create-wallet/create-wallet.component'
+          ).then(m => m.CreateWalletComponent),
+      },
+      {
         path: 'profile',
         canActivate: [AuthGuard],
         loadComponent: () =>
@@ -135,19 +155,109 @@ export const routes: Routes = [
       },
     ],
   },
+  // ===== ÁREA ADMINISTRATIVA =====
+  {
+    path: 'admin/login',
+    canActivate: [AdminLoginGuard],
+    loadComponent: () =>
+      import('./admin/login/admin-login.component').then(
+        m => m.AdminLoginComponent
+      ),
+  },
   {
     path: 'admin',
-    canActivate: [AuthGuard], // Protege toda a rota admin
+    canActivate: [AdminAuthGuard],
+    loadComponent: () =>
+      import('./admin/layout/admin-layout.component').then(
+        m => m.AdminLayoutComponent
+      ),
     children: [
       {
-        path: 'pricing',
-        canActivate: [AuthGuard],
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        canActivate: [AdminAuthGuard],
         loadComponent: () =>
-          import('./admin/plan-pricing/plan-pricing.component').then(
-            m => m.PlanPricingComponent
+          import('./admin/dashboard/admin-dashboard.component').then(
+            m => m.AdminDashboardComponent
           ),
+        data: { permissions: ['view_metrics'] },
+      },
+      {
+        path: 'users',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/users/admin-users.component').then(
+            m => m.AdminUsersComponent
+          ),
+        data: { permissions: ['view_users'] },
+      },
+      {
+        path: 'metrics',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/metrics/admin-metrics.component').then(
+            m => m.AdminMetricsComponent
+          ),
+        data: { permissions: ['view_metrics'] },
+      },
+      {
+        path: 'pricing',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/pricing/admin-pricing.component').then(
+            m => m.AdminPricingComponent
+          ),
+        data: { permissions: ['manage_pricing'] },
+      },
+      {
+        path: 'subscriptions',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/subscriptions/admin-subscriptions.component').then(
+            m => m.AdminSubscriptionsComponent
+          ),
+        data: { permissions: ['view_subscriptions'] },
+      },
+      {
+        path: 'transactions',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/transactions/admin-transactions.component').then(
+            m => m.AdminTransactionsComponent
+          ),
+        data: { permissions: ['view_transactions'] },
+      },
+      {
+        path: 'reports',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/reports/admin-reports.component').then(
+            m => m.AdminReportsComponent
+          ),
+        data: { permissions: ['view_metrics'] },
+      },
+      {
+        path: 'settings',
+        canActivate: [AdminAuthGuard],
+        loadComponent: () =>
+          import('./admin/settings/admin-settings.component').then(
+            m => m.AdminSettingsComponent
+          ),
+        data: { permissions: ['system_settings'] },
       },
     ],
+  },
+  // ===== PLAN PRICING (LEGACY) =====
+  {
+    path: 'plan-pricing',
+    loadComponent: () =>
+      import('./admin/plan-pricing/plan-pricing.component').then(
+        m => m.PlanPricingComponent
+      ),
   },
   {
     path: '**',
