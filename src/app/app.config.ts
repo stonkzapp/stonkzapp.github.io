@@ -1,11 +1,5 @@
-import {
-  ApplicationConfig,
-  provideZoneChangeDetection,
-  LOCALE_ID,
-} from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
 
 import { routes } from './app.routes';
 import {
@@ -19,17 +13,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
-// Registra o locale pt-BR
-registerLocaleData(localePt);
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
-      withInMemoryScrolling({
-        scrollPositionRestoration: 'enabled',
-        anchorScrolling: 'enabled', // Melhora SEO para âncoras
-      })
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
     ),
     provideAnimations(),
     provideToastr({
@@ -55,14 +43,9 @@ export const appConfig: ApplicationConfig = {
       messageClass: 'toast-message',
       toastClass: 'toast',
     }),
-    provideZoneChangeDetection({
-      eventCoalescing: true,
-      runCoalescing: true, // Melhora performance
-    }),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
     provideNativeDateAdapter(),
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
 };

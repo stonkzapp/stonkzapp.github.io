@@ -59,7 +59,6 @@
               ],
               "outputHashing": "all",
               "optimization": true,
-              "extractLicenses": true,
               "sourceMap": false,
               "namedChunks": false
             },
@@ -110,6 +109,6 @@
     }
   },
   "cli": {
-    "analytics": "cf19f51e-2546-473d-a644-6107e9a58d2d"
+    "analytics": "e7124af2-731f-47e4-98c8-a60f0b33e0cb"
   }
 }
