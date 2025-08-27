@@ -295,10 +295,22 @@
     border-color: var(--color-primary) !important;
   }
 
-  mat-icon {
-    font-size: 20px !important;
+  .social-icon {
     width: 20px !important;
     height: 20px !important;
+    flex-shrink: 0;
+  }
+
+  .google-icon {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0;
+  }
+
+  .apple-icon {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0;
   }
 
   span {
@@ -465,6 +477,21 @@ button:disabled {
     height: 44px !important;
   }
 
+  .social-button {
+    .social-icon {
+      width: 18px !important;
+      height: 18px !important;
+      flex-shrink: 0;
+    }
+
+    .google-icon,
+    .apple-icon {
+      width: 16px !important;
+      height: 16px !important;
+      flex-shrink: 0;
+    }
+  }
+
   .divider {
     margin: var(--space-4) 0;
   }
@@ -479,6 +506,21 @@ button:disabled {
   .sso-button span,
   .enterprise-button span {
     font-size: var(--font-size-xs);
+  }
+
+  .social-button {
+    .social-icon {
+      width: 16px !important;
+      height: 16px !important;
+      flex-shrink: 0;
+    }
+
+    .google-icon,
+    .apple-icon {
+      width: 14px !important;
+      height: 14px !important;
+      flex-shrink: 0;
+    }
   }
 
   .biometric-button,

@@ -1,411 +1,578 @@
-<!-- Header da Landing Page -->
-<header class="landing-header">
-  <div class="header-container">
-    <div class="logo-section">
-      <img src="logo-stonkz.svg" alt="Stonkz Logo" class="logo" />
-    </div>
+<!-- Container principal para animações -->
+<div #landingContainer class="landing-container">
+  <!-- Header da Landing Page -->
+  <header class="landing-header">
+    <div class="header-container">
+      <div class="logo-section">
+        <img src="logo-stonkz.svg" alt="Stonkz Logo" class="logo" />
+      </div>
 
-    <nav class="header-nav">
-      <a (click)="scrollToSection('features')" class="nav-link"
-        >Funcionalidades</a
-      >
-      <a (click)="scrollToSection('pricing')" class="nav-link">Planos</a>
-      <a (click)="scrollToSection('about')" class="nav-link">Sobre</a>
-    </nav>
+      <nav class="header-nav">
+        <a (click)="scrollToSection('features')" class="nav-link"
+          >Funcionalidades</a
+        >
+        <a (click)="scrollToSection('pricing')" class="nav-link">Planos</a>
+        <a (click)="scrollToSection('about')" class="nav-link">Sobre</a>
+      </nav>
 
-    <div class="header-actions">
-      <button
-        mat-icon-button
-        class="theme-toggle"
-        (click)="toggleTheme()"
-        [attr.aria-label]="
-          isDarkMode()
-            ? 'Alternar para modo claro'
-            : 'Alternar para modo escuro'
-        ">
-        <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-      </button>
-      <button mat-button class="btn-login" (click)="goToLogin()">Entrar</button>
-      <button mat-raised-button class="btn-register" (click)="goToRegister()">
-        Começar Grátis
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- Hero Section -->
-<section class="hero-section">
-  <div class="hero-container">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        Gerencie seus investimentos com
-        <span class="highlight">profissionalismo</span>
-      </h1>
-      <p class="hero-description">
-        A plataforma web mais completa para controle de carteiras de
-        investimentos no Brasil. Dados da B3 e CVM atualizados diariamente,
-        análises avançadas e insights para suas decisões.
-      </p>
-      <div class="hero-actions">
-        <button mat-raised-button class="btn-primary" (click)="goToRegister()">
+      <div class="header-actions">
+        <button
+          mat-icon-button
+          class="theme-toggle"
+          (click)="toggleTheme()"
+          [attr.aria-label]="
+            isDarkMode()
+              ? 'Alternar para modo claro'
+              : 'Alternar para modo escuro'
+          ">
+          <mat-icon>{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+        <button mat-button class="btn-login" (click)="goToLogin()">
+          Entrar
+        </button>
+        <button mat-raised-button class="btn-register" (click)="goToRegister()">
           Começar Grátis
         </button>
-        <button
-          mat-button
-          class="btn-secondary"
-          (click)="scrollToSection('features')">
-          Conhecer Funcionalidades
-        </button>
       </div>
     </div>
+  </header>
 
-    <div class="hero-image">
-      <img
-        src="login/login.svg"
-        alt="Dashboard Stonkz"
-        class="dashboard-preview" />
-    </div>
-  </div>
-</section>
-
-<!-- Features Section -->
-<section id="features" class="features-section">
-  <div class="features-container">
-    <div class="section-header">
-      <h2 class="section-title">Por que escolher o Stonkz?</h2>
-      <p class="section-description">
-        Ferramentas profissionais para investidores que querem tomar decisões
-        informadas
-      </p>
-    </div>
-
-    <!-- Carrossel de Empresas Parceiras -->
-    <div class="partners-carousel">
-      <div class="partners-container">
-        <div class="partners-track">
-          <div class="partner-item" *ngFor="let partner of partners">
-            <div class="partner-logo">
-              <img [src]="partner.logo" [alt]="partner.alt" />
-            </div>
-          </div>
-          <!-- Duplicar itens para criar efeito de loop infinito -->
-          <div class="partner-item" *ngFor="let partner of partners">
-            <div class="partner-logo">
-              <img [src]="partner.logo" [alt]="partner.alt" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="features-grid">
-      <div class="feature-card" *ngFor="let feature of features">
-        <div class="feature-icon">
-          <mat-icon>{{ feature.icon }}</mat-icon>
-        </div>
-        <div class="feature-header">
-          <h3 class="feature-title">{{ feature.title }}</h3>
-          <div class="coming-soon-badge" *ngIf="feature.comingSoon">
-            Em breve
-          </div>
-        </div>
-        <p class="feature-description">{{ feature.description }}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Projeções e Possibilidades -->
-<section class="projections-section">
-  <div class="projections-container">
-    <div class="section-header">
-      <h2 class="section-title">
-        Transforme seus <span class="gradient-text">Investimentos</span>
-      </h2>
-      <p class="section-description">
-        Descubra como a Stonkz pode ajudar você a alcançar seus objetivos
-        financeiros
-      </p>
-    </div>
-
-    <div class="projections-grid">
-      <div class="projection-card" *ngFor="let projection of projections">
-        <div class="projection-icon" [class]="projection.gradient">
-          <mat-icon>{{ projection.icon }}</mat-icon>
-        </div>
-        <div class="projection-content">
-          <div class="projection-highlight" [class]="projection.gradient">
-            {{ projection.highlight }}
-          </div>
-          <h3 class="projection-title">{{ projection.title }}</h3>
-          <p class="projection-description">{{ projection.description }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Funcionalidades Avançadas -->
-<section class="advanced-features-section">
-  <div class="advanced-features-container">
-    <div class="section-header">
-      <h2 class="section-title">
-        Funcionalidades <span class="gradient-text">Avançadas</span>
-      </h2>
-      <p class="section-description">
-        Ferramentas profissionais que transformam sua experiência de
-        investimento
-      </p>
-    </div>
-
-    <div class="advanced-features-grid">
-      <div
-        class="advanced-feature-card"
-        *ngFor="let feature of advancedFeatures">
-        <div class="feature-highlight" [class]="feature.gradient">
-          {{ feature.highlight }}
-        </div>
-        <div class="feature-icon-large">
-          <mat-icon>{{ feature.icon }}</mat-icon>
-        </div>
-        <h3 class="advanced-feature-title">{{ feature.title }}</h3>
-        <p class="advanced-feature-description">{{ feature.description }}</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Demonstração de Gráficos -->
-<section class="demo-section">
-  <div class="demo-container">
-    <div class="demo-content">
-      <div class="demo-text">
-        <h2 class="demo-title">
-          Visualize seus <span class="gradient-text">Investimentos</span>
-        </h2>
-        <p class="demo-description">
-          Gráficos interativos e relatórios detalhados para acompanhar o
-          desempenho da sua carteira em tempo real.
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Gerencie seus investimentos com
+          <span class="highlight">PROFISSIONALISMO</span>
+        </h1>
+        <p class="hero-description">
+          A plataforma web mais completa para controle de carteiras de
+          investimentos no Brasil. Dados da B3 e CVM atualizados diariamente,
+          análises avançadas e insights para suas decisões.
         </p>
-        <ul class="demo-features-list">
-          <li>
-            <mat-icon class="check-icon">check_circle</mat-icon>
-            Carteiras múltiplas com separação por estratégia
-          </li>
-          <li>
-            <mat-icon class="check-icon">check_circle</mat-icon>
-            Análise de risco e volatilidade
-          </li>
-          <li>
-            <mat-icon class="check-icon">check_circle</mat-icon>
-            Relatórios mensais e trimestrais
-          </li>
-          <li>
-            <mat-icon class="check-icon">check_circle</mat-icon>
-            Comparação com benchmarks do mercado
-          </li>
-        </ul>
+        <div class="hero-actions">
+          <button
+            mat-raised-button
+            class="btn-primary"
+            (click)="goToRegister()">
+            Começar Grátis
+          </button>
+          <button
+            mat-button
+            class="btn-secondary"
+            (click)="scrollToSection('features')">
+            Conhecer Funcionalidades
+          </button>
+        </div>
       </div>
 
-      <div class="demo-visual">
-        <div class="chart-container">
-          <div class="chart-header">
-            <h4>Performance da Carteira</h4>
-            <div class="chart-period">Últimos 6 meses</div>
+      <!-- <div class="hero-image">
+        <img
+          src="login/login.svg"
+          alt="Dashboard Stonkz"
+          class="dashboard-preview" />
+      </div> -->
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="features-container">
+      <div class="section-header">
+        <h2 class="section-title">FERRAMENTAS que movem investimentos</h2>
+        <p class="section-description">
+          Ferramentas profissionais para investidores que querem tomar decisões
+          informadas
+        </p>
+      </div>
+
+      <!-- Carrossel de Empresas Parceiras -->
+      <div class="partners-carousel">
+        <div class="partners-container">
+          <!-- <div class="partners-header">
+            <h3 class="partners-title">PARCEIROS de confiança</h3>
+            <p class="partners-description">
+              Integração oficial com as principais instituições financeiras do
+              Brasil
+            </p>
+          </div> -->
+
+          <div class="partners-track">
+            <!-- Primeira sequência -->
+            <div class="partner-item" *ngFor="let partner of partners">
+              <div class="partner-logo">
+                <img [src]="partner.logo" [alt]="partner.alt" />
+              </div>
+            </div>
+
+            <div class="partner-item" *ngFor="let partner of partners">
+              <div class="partner-logo">
+                <img [src]="partner.logo" [alt]="partner.alt" />
+              </div>
+            </div>
+            <div class="partner-item" *ngFor="let partner of partners">
+              <div class="partner-logo">
+                <img [src]="partner.logo" [alt]="partner.alt" />
+              </div>
+            </div>
+            <div class="partner-item" *ngFor="let partner of partners">
+              <div class="partner-logo">
+                <img [src]="partner.logo" [alt]="partner.alt" />
+              </div>
+            </div>
+
+            <div class="partner-item" *ngFor="let partner of partners">
+              <div class="partner-logo">
+                <img [src]="partner.logo" [alt]="partner.alt" />
+              </div>
+            </div>
           </div>
-          <div class="chart-content">
-            <div class="chart-bars">
-              <div
-                class="chart-bar"
-                *ngFor="let data of portfolioData"
-                [style.height]="data.height + 'px'">
-                <div class="bar-value">
-                  {{ data.value | currency : 'BRL' : 'symbol' : '1.0-0' }}
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card" *ngFor="let feature of features">
+          <div class="feature-icon">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <div class="feature-header">
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <div class="coming-soon-badge" *ngIf="feature.comingSoon">
+              Em breve
+            </div>
+          </div>
+          <p class="feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projeções e Possibilidades -->
+  <section class="projections-section">
+    <div class="projections-container">
+      <div class="section-header">
+        <h2 class="section-title">TRANSFORME seus investimentos</h2>
+        <p class="section-description">
+          Descubra como a Stonkz pode ajudar você a alcançar seus objetivos
+          financeiros
+        </p>
+      </div>
+
+      <div class="projections-grid">
+        <div class="projection-card" *ngFor="let projection of projections">
+          <div class="projection-icon" [class]="projection.gradient">
+            <mat-icon>{{ projection.icon }}</mat-icon>
+          </div>
+          <div class="projection-content">
+            <div class="projection-highlight" [class]="projection.gradient">
+              {{ projection.highlight }}
+            </div>
+            <h3 class="projection-title">{{ projection.title }}</h3>
+            <p class="projection-description">{{ projection.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Funcionalidades Avançadas -->
+  <section class="advanced-features-section">
+    <div class="advanced-features-container">
+      <div class="section-header">
+        <h2 class="section-title">FUNCIONALIDADES avançadas</h2>
+        <p class="section-description">
+          Ferramentas profissionais que transformam sua experiência de
+          investimento
+        </p>
+      </div>
+
+      <div class="advanced-features-grid">
+        <div
+          class="advanced-feature-card"
+          *ngFor="let feature of advancedFeatures">
+          <div class="feature-highlight" [class]="feature.gradient">
+            {{ feature.highlight }}
+          </div>
+          <div class="feature-icon-large">
+            <mat-icon>{{ feature.icon }}</mat-icon>
+          </div>
+          <h3 class="advanced-feature-title">{{ feature.title }}</h3>
+          <p class="advanced-feature-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demonstração de Gráficos -->
+  <section class="demo-section">
+    <div class="demo-container">
+      <div class="demo-content">
+        <div class="demo-text">
+          <h2 class="demo-title">VISUALIZE seus investimentos</h2>
+          <p class="demo-description">
+            Gráficos interativos e relatórios detalhados para acompanhar o
+            desempenho da sua carteira em tempo real.
+          </p>
+          <ul class="demo-features-list">
+            <li>
+              <mat-icon class="check-icon">check_circle</mat-icon>
+              Carteiras múltiplas com separação por estratégia
+            </li>
+            <li>
+              <mat-icon class="check-icon">check_circle</mat-icon>
+              Análise de risco e volatilidade
+            </li>
+            <li>
+              <mat-icon class="check-icon">check_circle</mat-icon>
+              Relatórios mensais e trimestrais
+            </li>
+            <li>
+              <mat-icon class="check-icon">check_circle</mat-icon>
+              Comparação com benchmarks do mercado
+            </li>
+          </ul>
+        </div>
+
+        <div class="demo-visual">
+          <div class="chart-container">
+            <div class="chart-header">
+              <div class="chart-title-section">
+                <h4 class="chart-title">Performance da Carteira</h4>
+                <div class="chart-subtitle">Carteira Principal</div>
+              </div>
+              <div class="chart-controls">
+                <div class="chart-period-selector">
+                  <button class="period-btn active">6M</button>
+                  <button class="period-btn">1A</button>
+                  <button class="period-btn">3A</button>
                 </div>
-                <div class="bar-month">{{ data.month }}</div>
+                <div class="chart-growth-indicator positive">
+                  <mat-icon>trending_up</mat-icon>
+                  <span class="growth-value">+32.4%</span>
+                  <span class="growth-period">6M</span>
+                </div>
               </div>
             </div>
-            <div class="chart-growth">
-              <div class="growth-indicator positive">
-                <mat-icon>trending_up</mat-icon>
-                +32% no período
+
+            <div class="chart-main">
+              <div class="chart-line-container">
+                <svg
+                  class="chart-svg"
+                  viewBox="0 0 400 200"
+                  preserveAspectRatio="none">
+                  <!-- Grid lines -->
+                  <defs>
+                    <linearGradient
+                      id="chartGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="0%"
+                      y2="100%">
+                      <stop
+                        offset="0%"
+                        style="
+                          stop-color: rgba(99, 102, 241, 0.8);
+                          stop-opacity: 1;
+                        " />
+                      <stop
+                        offset="100%"
+                        style="
+                          stop-color: rgba(99, 102, 241, 0.1);
+                          stop-opacity: 1;
+                        " />
+                    </linearGradient>
+                    <linearGradient
+                      id="lineGradient"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%">
+                      <stop
+                        offset="0%"
+                        style="stop-color: #6366f1; stop-opacity: 1" />
+                      <stop
+                        offset="100%"
+                        style="stop-color: #8b5cf6; stop-opacity: 1" />
+                    </linearGradient>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                      <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  <!-- Grid lines -->
+                  <line x1="0" y1="40" x2="400" y2="40" class="grid-line" />
+                  <line x1="0" y1="80" x2="400" y2="80" class="grid-line" />
+                  <line x1="0" y1="120" x2="400" y2="120" class="grid-line" />
+                  <line x1="0" y1="160" x2="400" y2="160" class="grid-line" />
+
+                  <!-- Area chart -->
+                  <path
+                    class="chart-area"
+                    d="M0,160 L50,140 L100,120 L150,100 L200,80 L250,60 L300,40 L350,30 L400,20 L400,200 L0,200 Z"
+                    fill="url(#chartGradient)" />
+
+                  <!-- Line chart -->
+                  <path
+                    class="chart-line"
+                    d="M0,160 L50,140 L100,120 L150,100 L200,80 L250,60 L300,40 L350,30 L400,20"
+                    stroke="url(#lineGradient)"
+                    stroke-width="3"
+                    fill="none"
+                    filter="url(#glow)" />
+
+                  <!-- Data points -->
+                  <circle cx="0" cy="160" r="4" class="data-point" />
+                  <circle cx="50" cy="140" r="4" class="data-point" />
+                  <circle cx="100" cy="120" r="4" class="data-point" />
+                  <circle cx="150" cy="100" r="4" class="data-point" />
+                  <circle cx="200" cy="80" r="4" class="data-point" />
+                  <circle cx="250" cy="60" r="4" class="data-point" />
+                  <circle cx="300" cy="40" r="4" class="data-point" />
+                  <circle cx="350" cy="30" r="4" class="data-point" />
+                  <circle cx="400" cy="20" r="4" class="data-point" />
+                </svg>
+              </div>
+
+              <div class="chart-labels">
+                <div
+                  class="chart-label"
+                  *ngFor="let data of portfolioData; let i = index">
+                  <span class="label-month">{{ data.month }}</span>
+                  <span class="label-value">{{
+                    data.value | currency : 'BRL' : 'symbol' : '1.0-0'
+                  }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-footer">
+              <div class="chart-stats">
+                <div class="stat-item">
+                  <div class="stat-label">Valor Atual</div>
+                  <div class="stat-value">R$ 19.800</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Retorno Total</div>
+                  <div class="stat-value positive">+R$ 4.800</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-label">Volatilidade</div>
+                  <div class="stat-value">12.3%</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Pricing Section -->
-<section id="pricing" class="pricing-section">
-  <div class="pricing-container">
-    <div class="section-header">
-      <h2 class="section-title">Escolha seu plano</h2>
-      <p class="section-description">
-        Comece grátis e evolua conforme suas necessidades
-      </p>
-    </div>
+  <!-- Pricing Section -->
+  <section id="pricing" class="pricing-section">
+    <div class="pricing-container">
+      <div class="section-header">
+        <h2 class="section-title">ESCOLHA seu plano</h2>
+        <p class="section-description">
+          Comece grátis e evolua conforme suas necessidades
+        </p>
+      </div>
 
-    <div class="pricing-grid">
-      <div
-        class="plan-card"
-        *ngFor="let plan of plans"
-        [class.popular]="plan.popular">
-        <div class="plan-header">
-          <h3 class="plan-name">{{ plan.name }}</h3>
-          <div class="plan-price">
-            <span class="price-amount">{{ plan.price }}</span>
-            <span class="price-period">{{ plan.period }}</span>
+      <div class="pricing-grid">
+        <div
+          class="plan-card"
+          *ngFor="let plan of plans"
+          [class.popular]="plan.popular">
+          <div class="plan-header">
+            <h3 class="plan-name">{{ plan.name }}</h3>
+            <div class="plan-price">
+              <span class="price-amount">{{ plan.price }}</span>
+              <span class="price-period">{{ plan.period }}</span>
+            </div>
+            <div class="popular-badge" *ngIf="plan.popular">Mais Popular</div>
           </div>
-          <div class="popular-badge" *ngIf="plan.popular">Mais Popular</div>
+
+          <ul class="plan-features">
+            <li *ngFor="let feature of plan.features">
+              <mat-icon class="check-icon">check_circle</mat-icon>
+              {{ feature }}
+            </li>
+          </ul>
+
+          <button
+            mat-raised-button
+            [class]="'btn-' + plan.buttonColor"
+            (click)="plan.name === 'PRO' ? goToSubscription() : goToRegister()">
+            {{ plan.buttonText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <div class="section-header">
+        <h2 class="section-title">SOBRE a Stonkz</h2>
+        <p class="section-description">
+          Empoderando investidores brasileiros com tecnologia e dados de
+          qualidade
+        </p>
+      </div>
+
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            A Stonkz nasceu da necessidade de democratizar o acesso a
+            ferramentas profissionais de gestão de investimentos. Nossa
+            plataforma web integra dados oficiais da B3, CVM e outras fontes
+            confiáveis, atualizados diariamente, para fornecer análises precisas
+            e insights valiosos.
+          </p>
+          <p>
+            Acreditamos que cada investidor merece ter acesso a informações de
+            qualidade e ferramentas que facilitem suas decisões de investimento,
+            independentemente do seu nível de experiência. Atualmente focamos na
+            plataforma web, com apps mobile em desenvolvimento.
+          </p>
         </div>
 
-        <ul class="plan-features">
-          <li *ngFor="let feature of plan.features">
-            <mat-icon class="check-icon">check_circle</mat-icon>
-            {{ feature }}
-          </li>
-        </ul>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-number">10k+</div>
+            <div class="stat-label">Usuários Ativos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">R$ 50M+</div>
+            <div class="stat-label">Carteiras Gerenciadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">Uptime</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <button
-          mat-raised-button
-          [class]="'btn-' + plan.buttonColor"
-          (click)="plan.name === 'PRO' ? goToSubscription() : goToRegister()">
-          {{ plan.buttonText }}
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2 class="cta-title">PRONTO para começar?</h2>
+      <p class="cta-description">
+        Junte-se a milhares de investidores que já confiam no Stonkz
+      </p>
+      <p class="cta-subtitle">
+        <strong>MVP Web disponível agora!</strong> App iOS e Android em breve.
+      </p>
+      <div class="cta-actions">
+        <button mat-raised-button class="btn-primary" (click)="goToRegister()">
+          Criar Conta Grátis
+        </button>
+        <button mat-button class="btn-secondary" (click)="goToLogin()">
+          Já tenho conta
         </button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- About Section -->
-<section id="about" class="about-section">
-  <div class="about-container">
-    <div class="section-header">
-      <h2 class="section-title">Sobre a Stonkz</h2>
-      <p class="section-description">
-        Empoderando investidores brasileiros com tecnologia e dados de qualidade
-      </p>
-    </div>
-
-    <div class="about-content">
-      <div class="about-text">
-        <p>
-          A Stonkz nasceu da necessidade de democratizar o acesso a ferramentas
-          profissionais de gestão de investimentos. Nossa plataforma web integra
-          dados oficiais da B3, CVM e outras fontes confiáveis, atualizados
-          diariamente, para fornecer análises precisas e insights valiosos.
-        </p>
-        <p>
-          Acreditamos que cada investidor merece ter acesso a informações de
-          qualidade e ferramentas que facilitem suas decisões de investimento,
-          independentemente do seu nível de experiência. Atualmente focamos na
-          plataforma web, com apps mobile em desenvolvimento.
-        </p>
-      </div>
-
-      <div class="about-stats">
-        <div class="stat-item">
-          <div class="stat-number">10k+</div>
-          <div class="stat-label">Usuários Ativos</div>
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="footer-container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="footer-logo">
+            <img
+              src="logo-stonkz.svg"
+              alt="Stonkz Logo"
+              class="footer-logo-img" />
+          </div>
+          <p class="footer-description">
+            A plataforma web mais completa para gestão de investimentos no
+            Brasil
+          </p>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">R$ 50M+</div>
-          <div class="stat-label">Carteiras Gerenciadas</div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Produto</h4>
+          <ul class="footer-links">
+            <li>
+              <a (click)="scrollToSection('features')">Funcionalidades</a>
+            </li>
+            <li><a (click)="scrollToSection('pricing')">Planos</a></li>
+            <li><a (click)="scrollToSection('about')">Sobre</a></li>
+          </ul>
         </div>
-        <div class="stat-item">
-          <div class="stat-number">99.9%</div>
-          <div class="stat-label">Uptime</div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Suporte</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:suporte@stonkz.com.br">Suporte</a></li>
+            <li><a href="mailto:contato@stonkz.com.br">Contato</a></li>
+            <li><a (click)="scrollToSection('about')">Sobre</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a routerLink="/terms">Termos de Uso</a></li>
+            <li><a routerLink="/privacy">Política de Privacidade</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4 class="footer-title">Redes Sociais</h4>
+          <div class="social-links">
+            <a
+              href="https://www.instagram.com/stonkz.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link instagram"
+              title="Instagram @stonkz.app">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/company/stonkzapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link linkedin"
+              title="LinkedIn @stonkzapp">
+              <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">
+          <p class="disclaimer-text">
+            <strong>Importante:</strong> O StonkzApp não tem como objetivo a
+            recomendação e/ou sugestão de compra de ativos. Nosso site possui
+            caráter meramente informativo e educativo, sempre trazendo
+            informações de fontes públicas (B3, CVM, Banco Central, Tesouro
+            Nacional, etc.), deste modo, não nos responsabilizamos por qualquer
+            decisão que o investidor venha a tomar a partir das informações
+            contidas em nosso site.
+          </p>
+        </div>
+
+        <div class="footer-copyright">
+          <p>&copy; 2025 Stonkz. Todos os direitos reservados.</p>
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section">
-  <div class="cta-container">
-    <h2 class="cta-title">Pronto para começar?</h2>
-    <p class="cta-description">
-      Junte-se a milhares de investidores que já confiam no Stonkz
-    </p>
-    <p class="cta-subtitle">
-      <strong>MVP Web disponível agora!</strong> App iOS e Android em breve.
-    </p>
-    <div class="cta-actions">
-      <button mat-raised-button class="btn-primary" (click)="goToRegister()">
-        Criar Conta Grátis
-      </button>
-      <button mat-button class="btn-secondary" (click)="goToLogin()">
-        Já tenho conta
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- Footer -->
-<footer class="landing-footer">
-  <div class="footer-container">
-    <div class="footer-content">
-      <div class="footer-section">
-        <div class="footer-logo">
-          <img
-            src="logo-stonkz.svg"
-            alt="Stonkz Logo"
-            class="footer-logo-img" />
-        </div>
-        <p class="footer-description">
-          A plataforma web mais completa para gestão de investimentos no Brasil
-        </p>
-      </div>
-
-      <div class="footer-section">
-        <h4 class="footer-title">Produto</h4>
-        <ul class="footer-links">
-          <li><a (click)="scrollToSection('features')">Funcionalidades</a></li>
-          <li><a (click)="scrollToSection('pricing')">Planos</a></li>
-          <li><a (click)="scrollToSection('about')">Sobre</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4 class="footer-title">Suporte</h4>
-        <ul class="footer-links">
-          <li><a href="mailto:suporte@stonkz.com.br">Suporte</a></li>
-          <li><a href="mailto:contato@stonkz.com.br">Contato</a></li>
-          <li><a (click)="scrollToSection('about')">Sobre</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4 class="footer-title">Legal</h4>
-        <ul class="footer-links">
-          <li><a routerLink="/terms">Termos de Uso</a></li>
-          <li><a routerLink="/privacy">Política de Privacidade</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="footer-divider"></div>
-
-    <div class="footer-bottom">
-      <div class="footer-disclaimer">
-        <p class="disclaimer-text">
-          <strong>Importante:</strong> O StonkzApp não tem como objetivo a
-          recomendação e/ou sugestão de compra de ativos. Nosso site possui
-          caráter meramente informativo e educativo, sempre trazendo informações
-          de fontes públicas (B3, CVM, Banco Central, Tesouro Nacional, etc.),
-          deste modo, não nos responsabilizamos por qualquer decisão que o
-          investidor venha a tomar a partir das informações contidas em nosso
-          site.
-        </p>
-      </div>
-
-      <div class="footer-copyright">
-        <p>&copy; 2025 Stonkz. Todos os direitos reservados.</p>
-      </div>
-    </div>
-  </div>
-</footer>
+  </footer>
+</div>
