@@ -26,7 +26,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled', // Melhora SEO para âncoras
+      })
     ),
     provideAnimations(),
     provideToastr({
@@ -52,7 +55,10 @@ export const appConfig: ApplicationConfig = {
       messageClass: 'toast-message',
       toastClass: 'toast',
     }),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZoneChangeDetection({
+      eventCoalescing: true,
+      runCoalescing: true, // Melhora performance
+    }),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),

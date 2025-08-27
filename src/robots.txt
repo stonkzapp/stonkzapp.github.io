@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://stonkz.app/sitemap.xml
+
+# Crawl-delay para evitar sobrecarga do servidor
+Crawl-delay: 1
+
+# Bloquear arquivos desnecessários
+Disallow: /assets/
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.map$
+
+# Permitir páginas importantes
+Allow: /
+Allow: /auth/login
+Allow: /auth/register
+Allow: /terms
+Allow: /privacy
+Allow: /about
+
+# Bloquear páginas administrativas
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/

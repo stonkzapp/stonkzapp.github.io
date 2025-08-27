@@ -2,15 +2,22 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Safari support */
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 99999; /* Aumentado para garantir que fique acima de tudo */
   animation: fadeIn 0.3s ease-out;
+  /* Garantir que funcione em todos os dispositivos */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  /* Prevenir problemas de scroll no mobile */
+  overflow: hidden;
+  touch-action: none;
 }
 
 .loading-container {
@@ -18,12 +25,18 @@
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  /* Garantir que o container seja visível */
+  position: relative;
+  z-index: 100000;
 }
 
 .rocket-emoji {
   font-size: 4rem;
   animation: rocketFloat 2s ease-in-out infinite;
   filter: drop-shadow(0 4px 20px rgba(255, 107, 53, 0.3));
+  /* Garantir que o emoji seja visível */
+  display: block;
+  line-height: 1;
 }
 
 .loading-text {
@@ -31,6 +44,8 @@
   font-size: 1.2rem;
   font-weight: 500;
   text-align: center;
+  /* Garantir que o texto seja visível */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .loading-dots {
@@ -40,6 +55,9 @@
 .dot {
   animation: dotPulse 1.4s ease-in-out infinite;
   opacity: 0.3;
+  /* Garantir que os pontos sejam visíveis */
+  display: inline-block;
+  margin: 0 2px;
 }
 
 .dot:nth-child(1) {
@@ -89,8 +107,21 @@
   }
 }
 
-/* Responsividade */
+/* Responsividade melhorada */
 @media (max-width: 768px) {
+  .loading-overlay {
+    /* Garantir que o overlay cubra toda a tela no mobile */
+    width: 100vw;
+    height: 100vh;
+    /* Ajustar para dispositivos móveis */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .loading-container {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
   .rocket-emoji {
     font-size: 3rem;
   }
@@ -101,7 +132,51 @@
 }
 
 @media (max-width: 480px) {
+  .loading-overlay {
+    /* Ajustes específicos para mobile pequeno */
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .loading-container {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
   .rocket-emoji {
     font-size: 2.5rem;
+  }
+
+  .loading-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Ajustes para dispositivos com tela pequena */
+@media (max-height: 600px) {
+  .loading-container {
+    gap: 1rem;
+  }
+
+  .rocket-emoji {
+    font-size: 2.5rem;
+  }
+
+  .loading-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Suporte para orientação landscape no mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .loading-container {
+    gap: 1rem;
+  }
+
+  .rocket-emoji {
+    font-size: 2.5rem;
+  }
+
+  .loading-text {
+    font-size: 0.9rem;
   }
 }

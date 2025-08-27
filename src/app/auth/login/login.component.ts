@@ -76,24 +76,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   socialProviders: {
     provider: AuthProvider;
     name: string;
-    icon: string;
-    color: string;
   }[] = [
-    { provider: 'google', name: 'Google', icon: 'google', color: '#db4437' },
-    { provider: 'apple', name: 'Apple', icon: 'apple', color: '#000000' },
+    { provider: 'google', name: 'Google' },
+    { provider: 'apple', name: 'Apple' },
     // {
     //   provider: 'facebook',
     //   name: 'Facebook',
-    //   icon: 'facebook',
-    //   color: '#1877f2',
     // },
     // {
     //   provider: 'microsoft',
     //   name: 'Microsoft',
-    //   icon: 'microsoft',
-    //   color: '#0078d4',
     // },
-    // { provider: 'github', name: 'GitHub', icon: 'github', color: '#333333' },
+    // { provider: 'github', name: 'GitHub' },
   ];
 
   constructor(

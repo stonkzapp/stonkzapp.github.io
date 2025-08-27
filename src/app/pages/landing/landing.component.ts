@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,8 +19,162 @@ import { ThemeService } from '../../core/services/theme.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss'],
 })
-export class LandingComponent {
+export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild('landingContainer') landingContainer!: ElementRef;
+
+  private observer!: IntersectionObserver;
+  private scrollListener!: () => void;
+
   constructor(private router: Router, private themeService: ThemeService) {}
+
+  ngOnInit() {
+    this.setupScrollAnimations();
+    this.setupHeaderScrollEffect();
+  }
+
+  ngAfterViewInit() {
+    this.initializeScrollAnimations();
+  }
+
+  ngOnDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+    if (this.scrollListener) {
+      window.removeEventListener('scroll', this.scrollListener);
+    }
+  }
+
+  // Sistema de animações de scroll
+  private setupScrollAnimations() {
+    this.observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+
+            // Adiciona delay sequencial para elementos filhos
+            const children =
+              entry.target.querySelectorAll('.animate-on-scroll');
+            children.forEach((child: Element, index: number) => {
+              setTimeout(() => {
+                child.classList.add('animated');
+              }, index * 100);
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+  }
+
+  private initializeScrollAnimations() {
+    // Adiciona classes de animação apenas aos elementos que realmente precisam
+    const animatedElements =
+      this.landingContainer.nativeElement.querySelectorAll(
+        '.animate-on-scroll'
+      );
+
+    animatedElements.forEach((element: Element) => {
+      this.observer.observe(element);
+    });
+
+    // Observa seções completas para animações especiais (gráficos e estatísticas)
+    const sections =
+      this.landingContainer.nativeElement.querySelectorAll('section');
+    sections.forEach((section: Element) => {
+      this.observer.observe(section);
+    });
+
+    // Remove delays sequenciais automáticos - agora são aplicados manualmente
+    // apenas aos elementos que realmente precisam
+  }
+
+  // Efeito de scroll no header
+  private setupHeaderScrollEffect() {
+    this.scrollListener = () => {
+      const header = document.querySelector('.landing-header');
+      if (header) {
+        if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      }
+    };
+
+    window.addEventListener('scroll', this.scrollListener);
+  }
+
+  // Animações especiais para gráficos
+  animateChartBars() {
+    const bars = document.querySelectorAll('.chart-bar');
+    bars.forEach((bar, index) => {
+      setTimeout(() => {
+        bar.classList.add('animated');
+      }, index * 100);
+    });
+  }
+
+  // Animações para números estatísticos
+  animateStats() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach((stat, index) => {
+      setTimeout(() => {
+        stat.classList.add('animated');
+        this.animateCounter(stat as HTMLElement);
+      }, index * 200);
+    });
+  }
+
+  // Ativa animações especiais quando elementos entram na viewport
+  private activateSpecialAnimations(entry: IntersectionObserverEntry) {
+    const target = entry.target;
+
+    // Anima gráficos quando a seção demo entrar na viewport
+    if (
+      target.classList.contains('demo-section') ||
+      target.querySelector('.chart-container')
+    ) {
+      setTimeout(() => this.animateChartBars(), 300);
+    }
+
+    // Anima estatísticas quando a seção about entrar na viewport
+    if (
+      target.classList.contains('about-section') ||
+      target.querySelector('.stat-item')
+    ) {
+      setTimeout(() => this.animateStats(), 300);
+    }
+  }
+
+  private animateCounter(element: HTMLElement) {
+    const finalValue = element.textContent;
+    if (finalValue && finalValue.includes('+')) {
+      const numericValue = parseInt(finalValue.replace(/[^\d]/g, ''));
+      let currentValue = 0;
+      const increment = numericValue / 30;
+
+      const timer = setInterval(() => {
+        currentValue += increment;
+        if (currentValue >= numericValue) {
+          currentValue = numericValue;
+          clearInterval(timer);
+        }
+
+        if (finalValue.includes('R$')) {
+          element.textContent = `R$ ${Math.floor(currentValue)}M+`;
+        } else if (finalValue.includes('%')) {
+          element.textContent = `${currentValue.toFixed(1)}%`;
+        } else {
+          element.textContent = `${Math.floor(currentValue)}k+`;
+        }
+      }, 50);
+    }
+  }
 
   // Features da plataforma
   features = [
@@ -98,64 +259,41 @@ export class LandingComponent {
     },
   ];
 
-  // Empresas parceiras que fornecem dados públicos
-  partners = [
-    {
-      name: 'B3',
-      logo: 'partners/b3.png',
-      description: 'Bolsa brasileira de valores',
-      alt: 'Logo B3 - Bolsa brasileira de valores',
-    },
-    {
-      name: 'CVM',
-      logo: 'partners/cvm.png',
-      description: 'Comissão de Valores Mobiliários',
-      alt: 'Logo CVM - Comissão de Valores Mobiliários',
-    },
-    {
-      name: 'Banco Central',
-      logo: 'partners/banco-central.png',
-      description: 'Banco Central do Brasil',
-      alt: 'Logo Banco Central do Brasil',
-    },
-    {
-      name: 'Tesouro Nacional',
-      logo: 'partners/tesouro-nacional.png',
-      description: 'Tesouro Nacional',
-      alt: 'Logo Tesouro Nacional',
-    },
+  // Dados do gráfico de portfólio
+  portfolioData = [
+    { month: 'Jan', value: 15000, height: 60 },
+    { month: 'Fev', value: 16500, height: 66 },
+    { month: 'Mar', value: 14200, height: 57 },
+    { month: 'Abr', value: 17800, height: 71 },
+    { month: 'Mai', value: 19200, height: 77 },
+    { month: 'Jun', value: 19800, height: 79 },
   ];
 
-  // Projeções e possibilidades para o usuário
+  // Dados das projeções
   projections = [
     {
       icon: 'trending_up',
-      title: 'Crescimento do Patrimônio',
-      description: 'Acompanhe a evolução do seu patrimônio ao longo do tempo',
-      highlight: 'CRESCIMENTO',
-      gradient: 'gradient-success',
-    },
-    {
-      icon: 'analytics',
-      title: 'Análise de Performance',
-      description: 'Compare seus resultados com benchmarks do mercado',
-      highlight: 'PERFORMANCE',
+      highlight: 'Crescimento',
+      title: 'Acompanhamento de Performance',
+      description:
+        'Monitore o crescimento da sua carteira com gráficos interativos e relatórios detalhados.',
       gradient: 'gradient-primary',
     },
     {
-      icon: 'account_balance_wallet',
-      title: 'Gestão Inteligente',
-      description: 'Organize suas carteiras por estratégia e objetivo',
-      highlight: 'GESTÃO',
-      gradient: 'gradient-accent',
+      icon: 'analytics',
+      highlight: 'Análise',
+      title: 'Insights Inteligentes',
+      description:
+        'Receba sugestões baseadas em dados para otimizar seus investimentos.',
+      gradient: 'gradient-secondary',
     },
     {
-      icon: 'insights',
-      title: 'Insights Valiosos',
+      icon: 'security',
+      highlight: 'Segurança',
+      title: 'Dados Confiáveis',
       description:
-        'Receba análises e sugestões para otimizar seus investimentos',
-      highlight: 'INSIGHTS',
-      gradient: 'gradient-secondary',
+        'Acesso a informações oficiais da B3 e CVM, sempre atualizadas e precisas.',
+      gradient: 'gradient-success',
     },
   ];
 
@@ -163,44 +301,36 @@ export class LandingComponent {
   advancedFeatures = [
     {
       icon: 'dashboard',
-      title: 'Carteiras Múltiplas',
+      highlight: 'Dashboard',
+      title: 'Visão Completa',
       description:
-        'Gerencie diferentes estratégias de investimento em carteiras separadas',
-      highlight: 'MULTIPLAS',
+        'Interface intuitiva que mostra todos os seus investimentos em um só lugar.',
       gradient: 'gradient-primary',
     },
     {
-      icon: 'analytics',
-      title: 'Análise de Risco',
-      description: 'Métricas avançadas de risco e volatilidade para cada ativo',
-      highlight: 'RISCO',
-      gradient: 'gradient-warning',
-    },
-    {
-      icon: 'trending_up',
-      title: 'Performance Tracking',
-      description: 'Acompanhe o desempenho histórico com gráficos interativos',
-      highlight: 'PERFORMANCE',
-      gradient: 'gradient-success',
-    },
-    {
-      icon: 'notifications',
-      title: 'Alertas Inteligentes',
+      icon: 'notifications_active',
+      highlight: 'Alertas',
+      title: 'Notificações Inteligentes',
       description:
-        'Configure alertas personalizados para movimentações importantes',
-      highlight: 'ALERTAS',
-      gradient: 'gradient-accent',
+        'Configure alertas personalizados para movimentações importantes.',
+      gradient: 'gradient-secondary',
+    },
+    {
+      icon: 'compare_arrows',
+      highlight: 'Comparação',
+      title: 'Benchmarking',
+      description:
+        'Compare seu desempenho com índices do mercado e outras carteiras.',
+      gradient: 'gradient-success',
     },
   ];
 
-  // Dados de exemplo para gráficos
-  portfolioData = [
-    { month: 'Jan', value: 10000, growth: 0, height: 60 },
-    { month: 'Fev', value: 10500, growth: 5, height: 70 },
-    { month: 'Mar', value: 11200, growth: 12, height: 80 },
-    { month: 'Abr', value: 11800, growth: 18, height: 90 },
-    { month: 'Mai', value: 12500, growth: 25, height: 100 },
-    { month: 'Jun', value: 13200, growth: 32, height: 110 },
+  // Empresas parceiras
+  partners = [
+    { logo: 'partners/b3.png', alt: 'B3' },
+    { logo: 'partners/cvm.png', alt: 'CVM' },
+    { logo: 'partners/banco-central.png', alt: 'Banco Central' },
+    { logo: 'partners/tesouro-nacional.png', alt: 'Tesouro Nacional' },
   ];
 
   // Métodos de navegação
